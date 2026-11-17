@@ -1,0 +1,62 @@
+{
+  "resourceType": "CarePlan",
+  "id": "mcv-due",
+  "contained": [ {
+    "resourceType": "RequestGroup",
+    "id": "mcv-due",
+    "instantiatesCanonical": [ "http://example.org/fhir/PlanDefinition/mcv-due|1.0.0" ],
+    "status": "active",
+    "intent": "proposal",
+    "subject": {
+      "reference": "Patient/child-2"
+    },
+    "action": [ {
+      "id": "due",
+      "title": "Client is due for MCV",
+      "condition": [ {
+        "extension": [ {
+          "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-action-condition-result",
+          "valueBoolean": true
+        } ],
+        "kind": "applicability",
+        "expression": {
+          "language": "text/cql-identifier",
+          "expression": "Due For MCV"
+        }
+      } ],
+      "resource": {
+        "reference": "#due-recommend-mcv"
+      }
+    } ]
+  }, {
+    "resourceType": "MedicationRequest",
+    "id": "due-recommend-mcv",
+    "meta": {
+      "profile": [ "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-immunizationrequest" ]
+    },
+    "status": "active",
+    "intent": "proposal",
+    "doNotPerform": false,
+    "medicationCodeableConcept": {
+      "coding": [ {
+        "system": "http://example.org/fhir/CodeSystem/illustrative-vaccines",
+        "code": "MCV"
+      } ]
+    },
+    "subject": {
+      "reference": "Patient/child-2"
+    },
+    "instantiatesCanonical": [ "http://example.org/fhir/ActivityDefinition/recommend-mcv|1.0.0" ]
+  } ],
+  "instantiatesCanonical": [ "http://example.org/fhir/PlanDefinition/mcv-due|1.0.0" ],
+  "status": "active",
+  "intent": "proposal",
+  "subject": {
+    "reference": "Patient/child-2"
+  },
+  "activity": [ {
+    "reference": {
+      "reference": "#mcv-due"
+    }
+  } ]
+}

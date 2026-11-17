@@ -1,0 +1,205 @@
+{
+  "resourceType": "Parameters",
+  "parameter": [ {
+    "name": "All MCV",
+    "resource": {
+      "resourceType": "Immunization",
+      "id": "i3",
+      "status": "entered-in-error",
+      "vaccineCode": {
+        "coding": [ {
+          "system": "http://example.org/fhir/CodeSystem/illustrative-vaccines",
+          "code": "MCV"
+        } ]
+      },
+      "patient": {
+        "reference": "Patient/child-1"
+      },
+      "occurrenceDateTime": "2025-05-10T10:00:00Z",
+      "protocolApplied": [ {
+        "targetDisease": [ {
+          "text": "Measles"
+        } ],
+        "doseNumberPositiveInt": 2
+      } ]
+    }
+  }, {
+    "name": "All MCV",
+    "resource": {
+      "resourceType": "Immunization",
+      "id": "i4",
+      "status": "completed",
+      "vaccineCode": {
+        "coding": [ {
+          "system": "http://example.org/fhir/CodeSystem/illustrative-vaccines",
+          "code": "MCV"
+        } ]
+      },
+      "patient": {
+        "reference": "Patient/child-1"
+      },
+      "occurrenceString": "at the 9-month visit (historical, no date)",
+      "protocolApplied": [ {
+        "targetDisease": [ {
+          "text": "Measles"
+        } ],
+        "doseNumberString": "first"
+      } ]
+    }
+  }, {
+    "name": "All MCV",
+    "resource": {
+      "resourceType": "Immunization",
+      "id": "i1",
+      "status": "completed",
+      "vaccineCode": {
+        "coding": [ {
+          "system": "http://example.org/fhir/CodeSystem/illustrative-vaccines",
+          "code": "MCV"
+        } ]
+      },
+      "patient": {
+        "reference": "Patient/child-1"
+      },
+      "occurrenceDateTime": "2025-03-10T10:00:00Z",
+      "protocolApplied": [ {
+        "targetDisease": [ {
+          "text": "Measles"
+        } ],
+        "doseNumberPositiveInt": 1
+      } ]
+    }
+  }, {
+    "name": "All MCV",
+    "resource": {
+      "resourceType": "Immunization",
+      "id": "i2",
+      "status": "not-done",
+      "vaccineCode": {
+        "coding": [ {
+          "system": "http://example.org/fhir/CodeSystem/illustrative-vaccines",
+          "code": "MCV"
+        } ]
+      },
+      "patient": {
+        "reference": "Patient/child-1"
+      },
+      "occurrenceDateTime": "2025-04-10T10:00:00Z"
+    }
+  }, {
+    "name": "All MCV Ids",
+    "valueId": "i3"
+  }, {
+    "name": "All MCV Ids",
+    "valueId": "i4"
+  }, {
+    "name": "All MCV Ids",
+    "valueId": "i1"
+  }, {
+    "name": "All MCV Ids",
+    "valueId": "i2"
+  }, {
+    "name": "Completed Dose Count",
+    "valueInteger": 2
+  }, {
+    "name": "Completed MCV",
+    "resource": {
+      "resourceType": "Immunization",
+      "id": "i4",
+      "status": "completed",
+      "vaccineCode": {
+        "coding": [ {
+          "system": "http://example.org/fhir/CodeSystem/illustrative-vaccines",
+          "code": "MCV"
+        } ]
+      },
+      "patient": {
+        "reference": "Patient/child-1"
+      },
+      "occurrenceString": "at the 9-month visit (historical, no date)",
+      "protocolApplied": [ {
+        "targetDisease": [ {
+          "text": "Measles"
+        } ],
+        "doseNumberString": "first"
+      } ]
+    }
+  }, {
+    "name": "Completed MCV",
+    "resource": {
+      "resourceType": "Immunization",
+      "id": "i1",
+      "status": "completed",
+      "vaccineCode": {
+        "coding": [ {
+          "system": "http://example.org/fhir/CodeSystem/illustrative-vaccines",
+          "code": "MCV"
+        } ]
+      },
+      "patient": {
+        "reference": "Patient/child-1"
+      },
+      "occurrenceDateTime": "2025-03-10T10:00:00Z",
+      "protocolApplied": [ {
+        "targetDisease": [ {
+          "text": "Measles"
+        } ],
+        "doseNumberPositiveInt": 1
+      } ]
+    }
+  }, {
+    "name": "Completed MCV Ids",
+    "valueId": "i4"
+  }, {
+    "name": "Completed MCV Ids",
+    "valueId": "i1"
+  }, {
+    "name": "Dated Completed MCV",
+    "resource": {
+      "resourceType": "Immunization",
+      "id": "i1",
+      "status": "completed",
+      "vaccineCode": {
+        "coding": [ {
+          "system": "http://example.org/fhir/CodeSystem/illustrative-vaccines",
+          "code": "MCV"
+        } ]
+      },
+      "patient": {
+        "reference": "Patient/child-1"
+      },
+      "occurrenceDateTime": "2025-03-10T10:00:00Z",
+      "protocolApplied": [ {
+        "targetDisease": [ {
+          "text": "Measles"
+        } ],
+        "doseNumberPositiveInt": 1
+      } ]
+    }
+  }, {
+    "name": "Dated Dose Count",
+    "valueInteger": 1
+  }, {
+    "name": "Dose Numbers",
+    "valueString": "first"
+  }, {
+    "name": "Dose Numbers",
+    "valuePositiveInt": 1
+  }, {
+    "name": "Due For MCV",
+    "valueBoolean": false
+  }, {
+    "name": "Latest Dose Date",
+    "valueDateTime": "2025-03-10T10:00:00Z"
+  }, {
+    "name": "Not Done MCV Ids",
+    "valueId": "i2"
+  }, {
+    "name": "Patient",
+    "resource": {
+      "resourceType": "Patient",
+      "id": "child-1",
+      "birthDate": "2024-06-01"
+    }
+  } ]
+}

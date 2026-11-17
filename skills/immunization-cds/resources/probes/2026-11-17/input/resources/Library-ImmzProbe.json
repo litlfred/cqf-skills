@@ -1,0 +1,22 @@
+{
+  "resourceType": "Library",
+  "id": "ImmzProbe",
+  "url": "http://example.org/fhir/Library/ImmzProbe",
+  "version": "1.0.0",
+  "name": "ImmzProbe",
+  "status": "active",
+  "type": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/library-type",
+        "code": "logic-library"
+      }
+    ]
+  },
+  "content": [
+    {
+      "contentType": "text/cql",
+      "data": "bGlicmFyeSBJbW16UHJvYmUgdmVyc2lvbiAnMS4wLjAnCgp1c2luZyBGSElSIHZlcnNpb24gJzQuMC4xJwoKaW5jbHVkZSBGSElSSGVscGVycyB2ZXJzaW9uICc0LjAuMScgY2FsbGVkIEZISVJIZWxwZXJzCgpjb2Rlc3lzdGVtICJWQVgiOiAnaHR0cDovL2V4YW1wbGUub3JnL2ZoaXIvQ29kZVN5c3RlbS9pbGx1c3RyYXRpdmUtdmFjY2luZXMnCmNvZGUgIk1DViI6ICdNQ1YnIGZyb20gIlZBWCIgZGlzcGxheSAnTWVhc2xlcy1jb250YWluaW5nIHZhY2NpbmUgKGlsbHVzdHJhdGl2ZSknCgpwYXJhbWV0ZXIgIlRvZGF5IiBEYXRlIGRlZmF1bHQgVG9kYXkoKQoKY29udGV4dCBQYXRpZW50CgpkZWZpbmUgIkFsbCBNQ1YiOiBbSW1tdW5pemF0aW9uOiAiTUNWIl0KZGVmaW5lICJBbGwgTUNWIElkcyI6ICJBbGwgTUNWIiBJIHJldHVybiBJLmlkCmRlZmluZSAiQ29tcGxldGVkIE1DViI6ICJBbGwgTUNWIiBJIHdoZXJlIEkuc3RhdHVzID0gJ2NvbXBsZXRlZCcKZGVmaW5lICJDb21wbGV0ZWQgTUNWIElkcyI6ICJDb21wbGV0ZWQgTUNWIiBJIHJldHVybiBJLmlkCmRlZmluZSAiTm90IERvbmUgTUNWIElkcyI6ICJBbGwgTUNWIiBJIHdoZXJlIEkuc3RhdHVzID0gJ25vdC1kb25lJyByZXR1cm4gSS5pZApkZWZpbmUgIkNvbXBsZXRlZCBEb3NlIENvdW50IjogQ291bnQoIkNvbXBsZXRlZCBNQ1YiKQpkZWZpbmUgIkRhdGVkIENvbXBsZXRlZCBNQ1YiOiAiQ29tcGxldGVkIE1DViIgSSB3aGVyZSBJLm9jY3VycmVuY2UgaXMgRkhJUi5kYXRlVGltZQpkZWZpbmUgIkRhdGVkIERvc2UgQ291bnQiOiBDb3VudCgiRGF0ZWQgQ29tcGxldGVkIE1DViIpCmRlZmluZSAiTGF0ZXN0IERvc2UgRGF0ZSI6CiAgTWF4KCJEYXRlZCBDb21wbGV0ZWQgTUNWIiBJIHJldHVybiAoSS5vY2N1cnJlbmNlIGFzIEZISVIuZGF0ZVRpbWUpKQpkZWZpbmUgIkRvc2UgTnVtYmVycyI6CiAgIkNvbXBsZXRlZCBNQ1YiIEkgcmV0dXJuIEkucHJvdG9jb2xBcHBsaWVkWzBdLmRvc2VOdW1iZXIKZGVmaW5lICJEdWUgRm9yIE1DViI6CiAgIkNvbXBsZXRlZCBEb3NlIENvdW50IiA8IDIKICAgIGFuZCAoIkxhdGVzdCBEb3NlIERhdGUiIGlzIG51bGwgb3IgZGF0ZSBmcm9tICJMYXRlc3QgRG9zZSBEYXRlIiArIDQgd2Vla3MgPD0gIlRvZGF5IikK"
+    }
+  ]
+}

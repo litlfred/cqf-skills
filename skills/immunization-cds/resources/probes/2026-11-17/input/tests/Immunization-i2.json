@@ -1,0 +1,17 @@
+{
+  "resourceType": "Immunization",
+  "id": "i2",
+  "status": "not-done",
+  "vaccineCode": {
+    "coding": [
+      {
+        "system": "http://example.org/fhir/CodeSystem/illustrative-vaccines",
+        "code": "MCV"
+      }
+    ]
+  },
+  "patient": {
+    "reference": "Patient/child-1"
+  },
+  "occurrenceDateTime": "2025-04-10T10:00:00Z"
+}
