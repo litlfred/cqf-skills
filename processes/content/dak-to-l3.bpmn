@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bootstrap.processes="https://litlfred.github.io/bootstrap/v0/processes/ns#" xmlns:cat-harness.processes="https://litlfred.github.io/cat-harness/v0/processes/ns#"
+                  id="Definitions_Process_DakToL3" targetNamespace="https://litlfred.github.io/cqf-skills/processes" exporter="cqf-skills" exporterVersion="1">
+  <bpmn:resource id="knowledge-engineer" name="Knowledge engineer"/>
+  <bpmn:resource id="ig-author" name="IG author"/>
+  <bpmn:collaboration id="Collaboration_Process_DakToL3">
+    <bpmn:participant id="Participant_Process_DakToL3" name="Turn a DAK into L3 content" processRef="Process_DakToL3"/>
+  </bpmn:collaboration>
+  <bpmn:process id="Process_DakToL3" name="Turn a DAK into L3 content" isExecutable="false">
+    <bpmn:documentation>A WHO SMART Guidelines DAK (L2) is ready: the knowledge engineer maps each component to an L3 artifact and writes the logic, the IG author models the data and builds the IG. Every artifact traces back to its DAK id.</bpmn:documentation>
+    <bpmn:extensionElements><cat-harness.processes:policy enforcement="advisory"/><cat-harness.processes:log capture="off"/></bpmn:extensionElements>
+    <bpmn:laneSet id="LaneSet_Process_DakToL3">
+      <bpmn:lane id="Lane_KnowledgeEngineer" name="Knowledge engineer" partitionElementRef="knowledge-engineer">
+        <bpmn:documentation>The person or agent who turns clinical intent into CQL and FHIR knowledge artifacts.</bpmn:documentation>
+        <bpmn:flowNodeRef>Start</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Map</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Logic</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Plan</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Apply</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Indicators</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_IgAuthor" name="IG author" partitionElementRef="ig-author">
+        <bpmn:documentation>The person or agent who keeps the FSH, the IG configuration and the build.</bpmn:documentation>
+        <bpmn:flowNodeRef>Task_Model</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Terms</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Forms</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Build</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="Start" name="A DAK is ready for L3"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:task id="Task_Map" name="Map each DAK component to an L3 artifact"><bpmn:documentation>Decision tables to CQL and PlanDefinitions, data elements to logical models and value sets, indicators to Measures, personas to ActorDefinitions, keeping the DAK ids.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="smart-dak"/></bpmn:extensionElements><bpmn:incoming>Flow_1</bpmn:incoming><bpmn:outgoing>Flow_2</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Model" name="Model the data elements"><bpmn:documentation>One logical model per activity in FSH, with the ValueSets and CodeSystems the data dictionary defines.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="fsh"/></bpmn:extensionElements><bpmn:incoming>Flow_2</bpmn:incoming><bpmn:outgoing>Flow_3</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Terms" name="Bind and map the terminology"><bpmn:documentation>ValueSets for each coded element and ConceptMaps to standard terminologies; pin versions.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="terminology"/></bpmn:extensionElements><bpmn:incoming>Flow_3</bpmn:incoming><bpmn:outgoing>Flow_4</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Logic" name="Write each decision table as CQL"><bpmn:documentation>One library per table, one definition per row condition and per output, the hit policy encoded and tested.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="cql"/></bpmn:extensionElements><bpmn:incoming>Flow_4</bpmn:incoming><bpmn:outgoing>Flow_5</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Plan" name="Write the PlanDefinitions"><bpmn:documentation>One ECA-rule PlanDefinition per decision table claiming the CPG profile, actions naming the CQL definitions.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="cpg"/></bpmn:extensionElements><bpmn:incoming>Flow_5</bpmn:incoming><bpmn:outgoing>Flow_6</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Apply" name="Check $apply per row"><bpmn:documentation>Run $apply against one synthetic case per row and one where no row fires.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="plan-definition"/></bpmn:extensionElements><bpmn:incoming>Flow_6</bpmn:incoming><bpmn:outgoing>Flow_7</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Indicators" name="Write the indicators as Measures"><bpmn:documentation>One Measure and library per DAK indicator, numerator and denominator from its definition.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="measure"/></bpmn:extensionElements><bpmn:incoming>Flow_7</bpmn:incoming><bpmn:outgoing>Flow_8</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Forms" name="Write the data-capture Questionnaires"><bpmn:documentation>Questionnaires for the activities, with $populate and $extract against the logical models.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="questionnaire"/></bpmn:extensionElements><bpmn:incoming>Flow_8</bpmn:incoming><bpmn:outgoing>Flow_9</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Build" name="Build the IG"><bpmn:documentation>Run the IG Publisher on SMART Base and read qa.html until it is clean.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="ig-publisher"/></bpmn:extensionElements><bpmn:incoming>Flow_9</bpmn:incoming><bpmn:outgoing>Flow_10</bpmn:outgoing></bpmn:task>
+    <bpmn:endEvent id="End" name="L3 IG built"><bpmn:incoming>Flow_10</bpmn:incoming></bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_Map"/>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Map" targetRef="Task_Model"/>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_Model" targetRef="Task_Terms"/>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_Terms" targetRef="Task_Logic"/>
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="Task_Logic" targetRef="Task_Plan"/>
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="Task_Plan" targetRef="Task_Apply"/>
+    <bpmn:sequenceFlow id="Flow_7" sourceRef="Task_Apply" targetRef="Task_Indicators"/>
+    <bpmn:sequenceFlow id="Flow_8" sourceRef="Task_Indicators" targetRef="Task_Forms"/>
+    <bpmn:sequenceFlow id="Flow_9" sourceRef="Task_Forms" targetRef="Task_Build"/>
+    <bpmn:sequenceFlow id="Flow_10" sourceRef="Task_Build" targetRef="End"/>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_Process_DakToL3">
+      <bpmndi:BPMNShape id="Participant_Process_DakToL3_di" bpmnElement="Participant_Process_DakToL3" isHorizontal="true"><dc:Bounds x="100" y="60" width="2330" height="320"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_KnowledgeEngineer_di" bpmnElement="Lane_KnowledgeEngineer" isHorizontal="true"><dc:Bounds x="130" y="60" width="2300" height="160"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_IgAuthor_di" bpmnElement="Lane_IgAuthor" isHorizontal="true"><dc:Bounds x="130" y="220" width="2300" height="160"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Start_di" bpmnElement="Start"><dc:Bounds x="252" y="122" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="210" y="164" width="120" height="27"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Map_di" bpmnElement="Task_Map"><dc:Bounds x="390" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Model_di" bpmnElement="Task_Model"><dc:Bounds x="580" y="260" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Terms_di" bpmnElement="Task_Terms"><dc:Bounds x="770" y="260" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Logic_di" bpmnElement="Task_Logic"><dc:Bounds x="960" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Plan_di" bpmnElement="Task_Plan"><dc:Bounds x="1150" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Apply_di" bpmnElement="Task_Apply"><dc:Bounds x="1340" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Indicators_di" bpmnElement="Task_Indicators"><dc:Bounds x="1530" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Forms_di" bpmnElement="Task_Forms"><dc:Bounds x="1720" y="260" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Build_di" bpmnElement="Task_Build"><dc:Bounds x="1910" y="260" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_di" bpmnElement="End"><dc:Bounds x="2152" y="282" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="2110" y="324" width="120" height="27"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1"><di:waypoint x="288" y="140"/><di:waypoint x="390" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2"><di:waypoint x="530" y="140"/><di:waypoint x="555" y="140"/><di:waypoint x="555" y="300"/><di:waypoint x="580" y="300"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3"><di:waypoint x="720" y="300"/><di:waypoint x="770" y="300"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4"><di:waypoint x="910" y="300"/><di:waypoint x="935" y="300"/><di:waypoint x="935" y="140"/><di:waypoint x="960" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5"><di:waypoint x="1100" y="140"/><di:waypoint x="1150" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_6_di" bpmnElement="Flow_6"><di:waypoint x="1290" y="140"/><di:waypoint x="1340" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_7_di" bpmnElement="Flow_7"><di:waypoint x="1480" y="140"/><di:waypoint x="1530" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_8_di" bpmnElement="Flow_8"><di:waypoint x="1670" y="140"/><di:waypoint x="1695" y="140"/><di:waypoint x="1695" y="300"/><di:waypoint x="1720" y="300"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_9_di" bpmnElement="Flow_9"><di:waypoint x="1860" y="300"/><di:waypoint x="1910" y="300"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10_di" bpmnElement="Flow_10"><di:waypoint x="2050" y="300"/><di:waypoint x="2152" y="300"/></bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

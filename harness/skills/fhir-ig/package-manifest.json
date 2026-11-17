@@ -1,0 +1,9 @@
+{
+  "name": "fhir-ig",
+  "version": "0.1.0",
+  "description": "Author, publish, and package FHIR content Implementation Guides (FSH, IG Publisher, CRMI)",
+  "skills": [
+    "fsh",
+    "ig-publisher"
+  ]
+}

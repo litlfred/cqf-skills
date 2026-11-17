@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bootstrap.processes="https://litlfred.github.io/bootstrap/v0/processes/ns#" xmlns:cat-harness.processes="https://litlfred.github.io/cat-harness/v0/processes/ns#"
+                  id="Definitions_Process_SkillContribution" targetNamespace="https://litlfred.github.io/cqf-skills/processes" exporter="cqf-skills" exporterVersion="1">
+  <bpmn:resource id="skill-maintainer" name="Skill maintainer"/>
+  <bpmn:resource id="cqframework-maintainer" name="cqframework maintainer"/>
+  <bpmn:collaboration id="Collaboration_Process_SkillContribution">
+    <bpmn:participant id="Participant_Process_SkillContribution" name="Add or change a skill" processRef="Process_SkillContribution"/>
+  </bpmn:collaboration>
+  <bpmn:process id="Process_SkillContribution" name="Add or change a skill" isExecutable="false">
+    <bpmn:documentation>A gap in the catalog (a bean) or a change upstream: the skill maintainer writes or changes the skill and its evals, regenerates the knowledge-graph view, and offers a skill of general use to cqframework. The fork never merges upstream; it proposes.</bpmn:documentation>
+    <bpmn:extensionElements><cat-harness.processes:policy enforcement="advisory"/><cat-harness.processes:log capture="off"/></bpmn:extensionElements>
+    <bpmn:laneSet id="LaneSet_Process_SkillContribution">
+      <bpmn:lane id="Lane_SkillMaintainer" name="Skill maintainer" partitionElementRef="skill-maintainer">
+        <bpmn:documentation>The person or agent who keeps the skills of this fork, their evals and the knowledge-graph view.</bpmn:documentation>
+        <bpmn:flowNodeRef>Start</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Bean</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Write</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Evals</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Register</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Upstream" name="cqframework maintainer" partitionElementRef="cqframework-maintainer">
+        <bpmn:documentation>A maintainer of cqframework/cqf-skills, who reviews a skill offered upstream. Outside this repository: the fork proposes, never merges.</bpmn:documentation>
+        <bpmn:flowNodeRef>Task_Offer</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="Start" name="A gap or an upstream change"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:task id="Task_Bean" name="Record the gap as a bean"><bpmn:documentation>One bean in beans/defs/ naming the tasks, two or three example prompts and the spec versions targeted.</bpmn:documentation><bpmn:incoming>Flow_1</bpmn:incoming><bpmn:outgoing>Flow_2</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Write" name="Write the skill from the template"><bpmn:documentation>Copy template/ to skills/&lt;name&gt;/, self-contained, versions stated, claims cited; mark draft until checked by running.</bpmn:documentation><bpmn:incoming>Flow_2</bpmn:incoming><bpmn:outgoing>Flow_3</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Evals" name="Write its evals"><bpmn:documentation>Trigger prompts (should and should not load), questions and an answer key in evals/&lt;name&gt;/.</bpmn:documentation><bpmn:incoming>Flow_3</bpmn:incoming><bpmn:outgoing>Flow_4</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Register" name="Validate and regenerate the graph view"><bpmn:documentation>Add it to marketplace.json, the README catalog and CHANGELOG; run validate_skills.py and tools/kg-index/kg_index.py.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="skill-registration"/></bpmn:extensionElements><bpmn:incoming>Flow_4</bpmn:incoming><bpmn:outgoing>Flow_5</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Offer" name="Review the skill offered upstream"><bpmn:documentation>A skill of general use is proposed to cqframework/cqf-skills as an issue, then a PR, once its evals pass with the skill and do worse without it.</bpmn:documentation><bpmn:incoming>Flow_5</bpmn:incoming><bpmn:outgoing>Flow_6</bpmn:outgoing></bpmn:task>
+    <bpmn:endEvent id="End" name="Skill in the catalog"><bpmn:incoming>Flow_6</bpmn:incoming></bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_Bean"/>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Bean" targetRef="Task_Write"/>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_Write" targetRef="Task_Evals"/>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_Evals" targetRef="Task_Register"/>
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="Task_Register" targetRef="Task_Offer"/>
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="Task_Offer" targetRef="End"/>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_Process_SkillContribution">
+      <bpmndi:BPMNShape id="Participant_Process_SkillContribution_di" bpmnElement="Participant_Process_SkillContribution" isHorizontal="true"><dc:Bounds x="100" y="60" width="1570" height="320"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_SkillMaintainer_di" bpmnElement="Lane_SkillMaintainer" isHorizontal="true"><dc:Bounds x="130" y="60" width="1540" height="160"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Upstream_di" bpmnElement="Lane_Upstream" isHorizontal="true"><dc:Bounds x="130" y="220" width="1540" height="160"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Start_di" bpmnElement="Start"><dc:Bounds x="252" y="122" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="210" y="164" width="120" height="27"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Bean_di" bpmnElement="Task_Bean"><dc:Bounds x="390" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Write_di" bpmnElement="Task_Write"><dc:Bounds x="580" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Evals_di" bpmnElement="Task_Evals"><dc:Bounds x="770" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Register_di" bpmnElement="Task_Register"><dc:Bounds x="960" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Offer_di" bpmnElement="Task_Offer"><dc:Bounds x="1150" y="260" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_di" bpmnElement="End"><dc:Bounds x="1392" y="282" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="1350" y="324" width="120" height="27"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1"><di:waypoint x="288" y="140"/><di:waypoint x="390" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2"><di:waypoint x="530" y="140"/><di:waypoint x="580" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3"><di:waypoint x="720" y="140"/><di:waypoint x="770" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4"><di:waypoint x="910" y="140"/><di:waypoint x="960" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5"><di:waypoint x="1100" y="140"/><di:waypoint x="1125" y="140"/><di:waypoint x="1125" y="300"/><di:waypoint x="1150" y="300"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_6_di" bpmnElement="Flow_6"><di:waypoint x="1290" y="300"/><di:waypoint x="1392" y="300"/></bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

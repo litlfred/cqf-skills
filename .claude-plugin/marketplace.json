@@ -48,14 +48,14 @@
       "description": "FHIR R4 resources, bundles, standard extensions, US Core and US Quality Core profiles",
       "source": "./",
       "strict": false,
-      "skills": ["./skills/fhir", "./skills/fhir-extensions", "./skills/uscore", "./skills/usqualitycore"]
+      "skills": ["./skills/fhir", "./skills/fhir-extensions", "./skills/uscore", "./skills/usqualitycore", "./skills/terminology"]
     },
     {
       "name": "clinical-reasoning",
       "description": "Author and evaluate FHIR Clinical Reasoning artifacts against the CPG, CRMI and FHIR Extensions IGs",
       "source": "./",
       "strict": false,
-      "skills": ["./skills/crmi", "./skills/cpg", "./skills/plan-definition", "./skills/questionnaire"]
+      "skills": ["./skills/crmi", "./skills/cpg", "./skills/plan-definition", "./skills/questionnaire", "./skills/measure", "./skills/smart-dak"]
     },
     {
       "name": "fhir-ig",

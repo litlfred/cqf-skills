@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bootstrap.processes="https://litlfred.github.io/bootstrap/v0/processes/ns#" xmlns:cat-harness.processes="https://litlfred.github.io/cat-harness/v0/processes/ns#"
+                  id="Definitions_Process_IgPublication" targetNamespace="https://litlfred.github.io/cqf-skills/processes" exporter="cqf-skills" exporterVersion="1">
+  <bpmn:resource id="ig-author" name="IG author"/>
+  <bpmn:collaboration id="Collaboration_Process_IgPublication">
+    <bpmn:participant id="Participant_Process_IgPublication" name="Build and publish a content IG" processRef="Process_IgPublication"/>
+  </bpmn:collaboration>
+  <bpmn:process id="Process_IgPublication" name="Build and publish a content IG" isExecutable="false">
+    <bpmn:documentation>Artifacts changed: the IG author compiles the FSH, checks the extensions used, builds with the IG Publisher and packages the artifacts.</bpmn:documentation>
+    <bpmn:extensionElements><cat-harness.processes:policy enforcement="advisory"/><cat-harness.processes:log capture="off"/></bpmn:extensionElements>
+    <bpmn:laneSet id="LaneSet_Process_IgPublication">
+      <bpmn:lane id="Lane_IgAuthor" name="IG author" partitionElementRef="ig-author">
+        <bpmn:documentation>The person or agent who keeps the FSH, the IG configuration and the build.</bpmn:documentation>
+        <bpmn:flowNodeRef>Start</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Fsh</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Ext</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Pub</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Pkg</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="Start" name="Artifacts changed"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:task id="Task_Fsh" name="Compile the FSH with SUSHI"><bpmn:documentation>Fix every SUSHI error and warning before the publisher runs.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="fsh"/></bpmn:extensionElements><bpmn:incoming>Flow_1</bpmn:incoming><bpmn:outgoing>Flow_2</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Ext" name="Check the extensions used"><bpmn:documentation>Each extension from the Extensions Pack version pinned, none deprecated without its replacement.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="fhir-extensions"/></bpmn:extensionElements><bpmn:incoming>Flow_2</bpmn:incoming><bpmn:outgoing>Flow_3</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Pub" name="Run the IG Publisher"><bpmn:documentation>Pinned publisher version, ig.ini and parameters; read qa.html.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="ig-publisher"/></bpmn:extensionElements><bpmn:incoming>Flow_3</bpmn:incoming><bpmn:outgoing>Flow_4</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Pkg" name="Package the artifacts"><bpmn:documentation>$package the knowledge artifacts with a manifest Library pinning dependencies.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="crmi"/></bpmn:extensionElements><bpmn:incoming>Flow_4</bpmn:incoming><bpmn:outgoing>Flow_5</bpmn:outgoing></bpmn:task>
+    <bpmn:endEvent id="End" name="IG published"><bpmn:incoming>Flow_5</bpmn:incoming></bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_Fsh"/>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Fsh" targetRef="Task_Ext"/>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_Ext" targetRef="Task_Pub"/>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_Pub" targetRef="Task_Pkg"/>
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="Task_Pkg" targetRef="End"/>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_Process_IgPublication">
+      <bpmndi:BPMNShape id="Participant_Process_IgPublication_di" bpmnElement="Participant_Process_IgPublication" isHorizontal="true"><dc:Bounds x="100" y="60" width="1380" height="160"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_IgAuthor_di" bpmnElement="Lane_IgAuthor" isHorizontal="true"><dc:Bounds x="130" y="60" width="1350" height="160"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Start_di" bpmnElement="Start"><dc:Bounds x="252" y="122" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="210" y="164" width="120" height="27"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Fsh_di" bpmnElement="Task_Fsh"><dc:Bounds x="390" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Ext_di" bpmnElement="Task_Ext"><dc:Bounds x="580" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Pub_di" bpmnElement="Task_Pub"><dc:Bounds x="770" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Pkg_di" bpmnElement="Task_Pkg"><dc:Bounds x="960" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_di" bpmnElement="End"><dc:Bounds x="1202" y="122" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="1160" y="164" width="120" height="27"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1"><di:waypoint x="288" y="140"/><di:waypoint x="390" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2"><di:waypoint x="530" y="140"/><di:waypoint x="580" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3"><di:waypoint x="720" y="140"/><di:waypoint x="770" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4"><di:waypoint x="910" y="140"/><di:waypoint x="960" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5"><di:waypoint x="1100" y="140"/><di:waypoint x="1202" y="140"/></bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

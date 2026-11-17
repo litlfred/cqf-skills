@@ -1,0 +1,32 @@
+{
+  "$schema": "folio-index-config/v1",
+  "_comment": "cqf-skills pins fhir-harness (and so everything below it) at the commit litlfred/smart-trust-demo pins (2026-11-17). The mounts are laid down from index.lock.json by `bun run cat mount:lock` and gitignored; the lock is not written yet (bean cqf-skills-hk01). Trust consent for the pin is the owner's to give at mount time.",
+  "instances": [
+    {
+      "name": "fhir-harness",
+      "source": {
+        "remote": {
+          "repository": "litlfred/fhir-harness",
+          "ref": "b36c50cdb9baeb5f2d33bfed4ee320c6845f29e7",
+          "overrides": {
+            "fhir-harness": {
+              "whole": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "cqf-skills",
+      "source": {
+        "local": {
+          "at": "."
+        }
+      }
+    }
+  ],
+  "site": {
+    "landing": "cqf-skills",
+    "agentRun": true
+  }
+}

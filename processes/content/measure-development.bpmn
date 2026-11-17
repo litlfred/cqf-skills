@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bootstrap.processes="https://litlfred.github.io/bootstrap/v0/processes/ns#" xmlns:cat-harness.processes="https://litlfred.github.io/cat-harness/v0/processes/ns#"
+                  id="Definitions_Process_MeasureDevelopment" targetNamespace="https://litlfred.github.io/cqf-skills/processes" exporter="cqf-skills" exporterVersion="1">
+  <bpmn:resource id="measure-developer" name="Measure developer"/>
+  <bpmn:resource id="ig-author" name="IG author"/>
+  <bpmn:collaboration id="Collaboration_Process_MeasureDevelopment">
+    <bpmn:participant id="Participant_Process_MeasureDevelopment" name="Develop a quality measure" processRef="Process_MeasureDevelopment"/>
+  </bpmn:collaboration>
+  <bpmn:process id="Process_MeasureDevelopment" name="Develop a quality measure" isExecutable="false">
+    <bpmn:documentation>A measure is specified: the developer writes its CQL and the Measure resource, builds test cases with expected populations, evaluates them, and the IG author packages and publishes the measure.</bpmn:documentation>
+    <bpmn:extensionElements><cat-harness.processes:policy enforcement="advisory"/><cat-harness.processes:log capture="off"/></bpmn:extensionElements>
+    <bpmn:laneSet id="LaneSet_Process_MeasureDevelopment">
+      <bpmn:lane id="Lane_MeasureDeveloper" name="Measure developer" partitionElementRef="measure-developer">
+        <bpmn:documentation>The person or agent who writes a quality measure, its test cases and its report expectations.</bpmn:documentation>
+        <bpmn:flowNodeRef>Start</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Cql</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Measure</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Terminology</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Cases</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Evaluate</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_IgAuthor" name="IG author" partitionElementRef="ig-author">
+        <bpmn:documentation>The person or agent who keeps the FSH, the IG configuration and the build.</bpmn:documentation>
+        <bpmn:flowNodeRef>Task_Package</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Publish</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="Start" name="A measure specification is agreed"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:task id="Task_Cql" name="Write the measure CQL"><bpmn:documentation>Write population criteria in the layers and patterns the measure programme requires, against the profiles it pins.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="cms-qmd"/></bpmn:extensionElements><bpmn:incoming>Flow_1</bpmn:incoming><bpmn:outgoing>Flow_2</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Measure" name="Define the Measure resource"><bpmn:documentation>Scoring, population basis, populations naming the CQL definitions, stratifiers, supplemental data, improvement notation.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="measure"/></bpmn:extensionElements><bpmn:incoming>Flow_2</bpmn:incoming><bpmn:outgoing>Flow_3</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Terminology" name="Pin the value sets"><bpmn:documentation>Expand every value set the measure uses at pinned code system versions; keep the expansions with the tests.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="terminology"/></bpmn:extensionElements><bpmn:incoming>Flow_3</bpmn:incoming><bpmn:outgoing>Flow_4</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Cases" name="Build test cases with expected populations"><bpmn:documentation>One synthetic case per population boundary, with MeasureReport expected values; convert to and from MADiE where the programme uses it.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="madie"/></bpmn:extensionElements><bpmn:incoming>Flow_4</bpmn:incoming><bpmn:outgoing>Flow_5</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Evaluate" name="Evaluate and compare"><bpmn:documentation>Run $evaluate-measure (or Execute CQL) and compare counts and scores with the expected values; explain every difference.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="measure"/></bpmn:extensionElements><bpmn:incoming>Flow_5</bpmn:incoming><bpmn:outgoing>Flow_6</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Package" name="Package the measure"><bpmn:documentation>Claim the CRMI profiles and $package the Measure with its libraries and value sets.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="crmi"/></bpmn:extensionElements><bpmn:incoming>Flow_6</bpmn:incoming><bpmn:outgoing>Flow_7</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Publish" name="Build and publish the IG"><bpmn:documentation>Run the IG Publisher and read qa.html until it is clean.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="ig-publisher"/></bpmn:extensionElements><bpmn:incoming>Flow_7</bpmn:incoming><bpmn:outgoing>Flow_8</bpmn:outgoing></bpmn:task>
+    <bpmn:endEvent id="End" name="Measure published"><bpmn:incoming>Flow_8</bpmn:incoming></bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_Cql"/>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Cql" targetRef="Task_Measure"/>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_Measure" targetRef="Task_Terminology"/>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_Terminology" targetRef="Task_Cases"/>
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="Task_Cases" targetRef="Task_Evaluate"/>
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="Task_Evaluate" targetRef="Task_Package"/>
+    <bpmn:sequenceFlow id="Flow_7" sourceRef="Task_Package" targetRef="Task_Publish"/>
+    <bpmn:sequenceFlow id="Flow_8" sourceRef="Task_Publish" targetRef="End"/>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_Process_MeasureDevelopment">
+      <bpmndi:BPMNShape id="Participant_Process_MeasureDevelopment_di" bpmnElement="Participant_Process_MeasureDevelopment" isHorizontal="true"><dc:Bounds x="100" y="60" width="1950" height="320"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_MeasureDeveloper_di" bpmnElement="Lane_MeasureDeveloper" isHorizontal="true"><dc:Bounds x="130" y="60" width="1920" height="160"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_IgAuthor_di" bpmnElement="Lane_IgAuthor" isHorizontal="true"><dc:Bounds x="130" y="220" width="1920" height="160"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Start_di" bpmnElement="Start"><dc:Bounds x="252" y="122" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="210" y="164" width="120" height="27"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Cql_di" bpmnElement="Task_Cql"><dc:Bounds x="390" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Measure_di" bpmnElement="Task_Measure"><dc:Bounds x="580" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Terminology_di" bpmnElement="Task_Terminology"><dc:Bounds x="770" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Cases_di" bpmnElement="Task_Cases"><dc:Bounds x="960" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Evaluate_di" bpmnElement="Task_Evaluate"><dc:Bounds x="1150" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Package_di" bpmnElement="Task_Package"><dc:Bounds x="1340" y="260" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Publish_di" bpmnElement="Task_Publish"><dc:Bounds x="1530" y="260" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_di" bpmnElement="End"><dc:Bounds x="1772" y="282" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="1730" y="324" width="120" height="27"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1"><di:waypoint x="288" y="140"/><di:waypoint x="390" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2"><di:waypoint x="530" y="140"/><di:waypoint x="580" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3"><di:waypoint x="720" y="140"/><di:waypoint x="770" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4"><di:waypoint x="910" y="140"/><di:waypoint x="960" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5"><di:waypoint x="1100" y="140"/><di:waypoint x="1150" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_6_di" bpmnElement="Flow_6"><di:waypoint x="1290" y="140"/><di:waypoint x="1315" y="140"/><di:waypoint x="1315" y="300"/><di:waypoint x="1340" y="300"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_7_di" bpmnElement="Flow_7"><di:waypoint x="1480" y="300"/><di:waypoint x="1530" y="300"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_8_di" bpmnElement="Flow_8"><di:waypoint x="1670" y="300"/><di:waypoint x="1772" y="300"/></bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

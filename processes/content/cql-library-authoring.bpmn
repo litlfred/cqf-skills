@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bootstrap.processes="https://litlfred.github.io/bootstrap/v0/processes/ns#" xmlns:cat-harness.processes="https://litlfred.github.io/cat-harness/v0/processes/ns#"
+                  id="Definitions_Process_CqlLibraryAuthoring" targetNamespace="https://litlfred.github.io/cqf-skills/processes" exporter="cqf-skills" exporterVersion="1">
+  <bpmn:resource id="knowledge-engineer" name="Knowledge engineer"/>
+  <bpmn:collaboration id="Collaboration_Process_CqlLibraryAuthoring">
+    <bpmn:participant id="Participant_Process_CqlLibraryAuthoring" name="Author a CQL library" processRef="Process_CqlLibraryAuthoring"/>
+  </bpmn:collaboration>
+  <bpmn:process id="Process_CqlLibraryAuthoring" name="Author a CQL library" isExecutable="false">
+    <bpmn:documentation>A logic requirement is agreed: the knowledge engineer writes the CQL, runs it against synthetic cases, packages it as a FHIR Library and claims the CRMI profile it meets. A person or an agent may do each step.</bpmn:documentation>
+    <bpmn:extensionElements><cat-harness.processes:policy enforcement="advisory"/><cat-harness.processes:log capture="off"/></bpmn:extensionElements>
+    <bpmn:laneSet id="LaneSet_Process_CqlLibraryAuthoring">
+      <bpmn:lane id="Lane_KnowledgeEngineer" name="Knowledge engineer" partitionElementRef="knowledge-engineer">
+        <bpmn:documentation>The person or agent who turns clinical intent into CQL and FHIR knowledge artifacts.</bpmn:documentation>
+        <bpmn:flowNodeRef>Start</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Write</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Terminology</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Test</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Library</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Crmi</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="Start" name="A logic requirement is agreed"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:task id="Task_Write" name="Write the CQL"><bpmn:documentation>Write the library against the model and version the project pins, with FHIRHelpers, and declare terminology as value sets or codes.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="cql"/></bpmn:extensionElements><bpmn:incoming>Flow_1</bpmn:incoming><bpmn:outgoing>Flow_2</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Terminology" name="Declare and pin terminology"><bpmn:documentation>Declare code systems, value sets and codes; expand the value sets the tests use and keep the expansions with their version parameters.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="terminology"/></bpmn:extensionElements><bpmn:incoming>Flow_2</bpmn:incoming><bpmn:outgoing>Flow_3</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Test" name="Run it against synthetic test cases"><bpmn:documentation>Lay out test cases for the VS Code CQL extension and compare Execute CQL results with the expected values.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="vscode-cql"/></bpmn:extensionElements><bpmn:incoming>Flow_3</bpmn:incoming><bpmn:outgoing>Flow_4</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Library" name="Package as a FHIR Library"><bpmn:documentation>Encode the CQL (and ELM) in a Library as Using CQL with FHIR requires: content, parameters, dataRequirements, relatedArtifact.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="cql-ig"/></bpmn:extensionElements><bpmn:incoming>Flow_4</bpmn:incoming><bpmn:outgoing>Flow_5</bpmn:outgoing></bpmn:task>
+    <bpmn:task id="Task_Crmi" name="Claim the CRMI profile"><bpmn:documentation>Choose shareable, publishable, computable or executable and fill what that profile requires.</bpmn:documentation><bpmn:extensionElements><bootstrap.processes:skill ref="crmi"/></bpmn:extensionElements><bpmn:incoming>Flow_5</bpmn:incoming><bpmn:outgoing>Flow_6</bpmn:outgoing></bpmn:task>
+    <bpmn:endEvent id="End" name="Library ready to publish"><bpmn:incoming>Flow_6</bpmn:incoming></bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="Start" targetRef="Task_Write"/>
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="Task_Write" targetRef="Task_Terminology"/>
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="Task_Terminology" targetRef="Task_Test"/>
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="Task_Test" targetRef="Task_Library"/>
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="Task_Library" targetRef="Task_Crmi"/>
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="Task_Crmi" targetRef="End"/>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_Process_CqlLibraryAuthoring">
+      <bpmndi:BPMNShape id="Participant_Process_CqlLibraryAuthoring_di" bpmnElement="Participant_Process_CqlLibraryAuthoring" isHorizontal="true"><dc:Bounds x="100" y="60" width="1570" height="160"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_KnowledgeEngineer_di" bpmnElement="Lane_KnowledgeEngineer" isHorizontal="true"><dc:Bounds x="130" y="60" width="1540" height="160"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Start_di" bpmnElement="Start"><dc:Bounds x="252" y="122" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="210" y="164" width="120" height="27"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Write_di" bpmnElement="Task_Write"><dc:Bounds x="390" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Terminology_di" bpmnElement="Task_Terminology"><dc:Bounds x="580" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Test_di" bpmnElement="Task_Test"><dc:Bounds x="770" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Library_di" bpmnElement="Task_Library"><dc:Bounds x="960" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Crmi_di" bpmnElement="Task_Crmi"><dc:Bounds x="1150" y="100" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_di" bpmnElement="End"><dc:Bounds x="1392" y="122" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="1350" y="164" width="120" height="27"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1"><di:waypoint x="288" y="140"/><di:waypoint x="390" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2"><di:waypoint x="530" y="140"/><di:waypoint x="580" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3"><di:waypoint x="720" y="140"/><di:waypoint x="770" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4"><di:waypoint x="910" y="140"/><di:waypoint x="960" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5"><di:waypoint x="1100" y="140"/><di:waypoint x="1150" y="140"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_6_di" bpmnElement="Flow_6"><di:waypoint x="1290" y="140"/><di:waypoint x="1392" y="140"/></bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

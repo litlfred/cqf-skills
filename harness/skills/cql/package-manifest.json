@@ -1,0 +1,13 @@
+{
+  "name": "cql",
+  "version": "0.1.0",
+  "description": "Author, test, and translate Clinical Quality Language (CQL) libraries, use CQL with FHIR, and author CMS quality measures",
+  "skills": [
+    "cms-qmd",
+    "cql",
+    "cql-ig",
+    "madie",
+    "us-cql-ig",
+    "vscode-cql"
+  ]
+}
