@@ -8,8 +8,15 @@ All notable changes to this project are documented here. The format is based on
 
 ### Added (litlfred fork)
 
-- `measure` skill (draft): FHIR R4 Measure and MeasureReport with the Quality Measure IG — scoring,
-  population nesting, population basis, stratifiers, supplemental data and the Measure operations.
+- `measure` skill: FHIR R4 Measure and MeasureReport with the Quality Measure IG 5.0.0 — scoring,
+  population nesting, population basis, stratifiers, supplemental data and the Measure operations —
+  each engine behaviour checked with clinical-reasoning 4.13.0 (probe record
+  `resources/probes/2026-11-17/`, runner `scripts/evaluate/run.sh`). Found by running it: a value
+  stratifier must be a `component` (a top-level `criteria` returning a value gives status `error` and
+  zero counts); a basis mismatch does not throw; a `summary` report has no `evaluatedResource`, an
+  `individual` one lists every retrieved resource; the aggregate codes are `minimum`/`maximum`; the
+  engine's `cqfm-fhirQueryPattern` differs from the IG's `cqf-fhirQueryPattern`. Evals ME-05 to ME-07
+  and task TK-01 with a grader.
 - `terminology` skill (draft): CQL terminology declarations and code comparison, R4 terminology
   operations, and pinning expansions for reproducible evaluation.
 - `smart-dak` skill (draft): WHO SMART Guidelines DAK (L2) to L3 content on SMART Base.

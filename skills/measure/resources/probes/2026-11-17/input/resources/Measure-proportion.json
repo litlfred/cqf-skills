@@ -1,0 +1,166 @@
+{
+  "resourceType": "Measure",
+  "id": "proportion",
+  "url": "http://example.org/fhir/Measure/proportion",
+  "version": "1.0.0",
+  "name": "proportion",
+  "status": "active",
+  "scoring": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/measure-scoring",
+        "code": "proportion"
+      }
+    ]
+  },
+  "library": [
+    "http://example.org/fhir/Library/MeasureProbe"
+  ],
+  "group": [
+    {
+      "id": "g1",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-populationBasis",
+          "valueCode": "boolean"
+        }
+      ],
+      "population": [
+        {
+          "id": "ip",
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "initial-population"
+              }
+            ]
+          },
+          "criteria": {
+            "language": "text/cql-identifier",
+            "expression": "Initial Population"
+          }
+        },
+        {
+          "id": "denom",
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "denominator"
+              }
+            ]
+          },
+          "criteria": {
+            "language": "text/cql-identifier",
+            "expression": "Denominator"
+          }
+        },
+        {
+          "id": "denex",
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "denominator-exclusion"
+              }
+            ]
+          },
+          "criteria": {
+            "language": "text/cql-identifier",
+            "expression": "Denominator Exclusions"
+          }
+        },
+        {
+          "id": "denexcep",
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "denominator-exception"
+              }
+            ]
+          },
+          "criteria": {
+            "language": "text/cql-identifier",
+            "expression": "Denominator Exceptions"
+          }
+        },
+        {
+          "id": "numer",
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "numerator"
+              }
+            ]
+          },
+          "criteria": {
+            "language": "text/cql-identifier",
+            "expression": "Numerator"
+          }
+        },
+        {
+          "id": "numex",
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "numerator-exclusion"
+              }
+            ]
+          },
+          "criteria": {
+            "language": "text/cql-identifier",
+            "expression": "Numerator Exclusions"
+          }
+        }
+      ],
+      "stratifier": [
+        {
+          "id": "by-sex",
+          "component": [
+            {
+              "id": "sex",
+              "code": {
+                "text": "sex"
+              },
+              "criteria": {
+                "language": "text/cql-identifier",
+                "expression": "Sex"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "improvementNotation": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/measure-improvement-notation",
+        "code": "increase"
+      }
+    ]
+  },
+  "supplementalData": [
+    {
+      "id": "sde-sex",
+      "usage": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/measure-data-usage",
+              "code": "supplemental-data"
+            }
+          ]
+        }
+      ],
+      "criteria": {
+        "language": "text/cql-identifier",
+        "expression": "Sex"
+      }
+    }
+  ]
+}

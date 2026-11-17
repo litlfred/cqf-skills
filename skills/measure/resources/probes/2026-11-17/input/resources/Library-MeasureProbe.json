@@ -1,0 +1,22 @@
+{
+  "resourceType": "Library",
+  "id": "MeasureProbe",
+  "url": "http://example.org/fhir/Library/MeasureProbe",
+  "version": "1.0.0",
+  "name": "MeasureProbe",
+  "status": "active",
+  "type": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/library-type",
+        "code": "logic-library"
+      }
+    ]
+  },
+  "content": [
+    {
+      "contentType": "text/cql",
+      "data": "bGlicmFyeSBNZWFzdXJlUHJvYmUgdmVyc2lvbiAnMS4wLjAnCgp1c2luZyBGSElSIHZlcnNpb24gJzQuMC4xJwoKaW5jbHVkZSBGSElSSGVscGVycyB2ZXJzaW9uICc0LjAuMScgY2FsbGVkIEZISVJIZWxwZXJzCgpwYXJhbWV0ZXIgIk1lYXN1cmVtZW50IFBlcmlvZCIgSW50ZXJ2YWw8RGF0ZVRpbWU+Cgpjb250ZXh0IFBhdGllbnQKCi8vIFBvcHVsYXRpb24gbWVtYmVyc2hpcCBpcyBmaXhlZCBieSBwYXRpZW50IGlkLCBzbyBlYWNoIHBvcHVsYXRpb24gYm91bmRhcnkgaXMgb25lIHBhdGllbnQuCmRlZmluZSAiSWQiOiBQYXRpZW50LmlkCmRlZmluZSAiSW5pdGlhbCBQb3B1bGF0aW9uIjogdHJ1ZQpkZWZpbmUgIkRlbm9taW5hdG9yIjogIkluaXRpYWwgUG9wdWxhdGlvbiIKZGVmaW5lICJEZW5vbWluYXRvciBFeGNsdXNpb25zIjogIklkIiBpbiB7ICdwNScgfQpkZWZpbmUgIkRlbm9taW5hdG9yIEV4Y2VwdGlvbnMiOiAiSWQiIGluIHsgJ3AzJywgJ3A0JyB9CmRlZmluZSAiTnVtZXJhdG9yIjogIklkIiBpbiB7ICdwMScsICdwMicsICdwMycsICdwNScgfQpkZWZpbmUgIk51bWVyYXRvciBFeGNsdXNpb25zIjogIklkIiBpbiB7ICdwMicgfQpkZWZpbmUgIlNleCI6IFBhdGllbnQuZ2VuZGVyCmRlZmluZSAiTm90IEluIElQIjogIklkIiBpbiB7ICdwNicgfQpkZWZpbmUgIklQIFdpdGhvdXQgcDYiOiBub3QgIk5vdCBJbiBJUCIKCi8vIEVuY291bnRlciBiYXNpczogZW5jb3VudGVycyB0aGF0IHN0YXJ0IGluIHRoZSBNZWFzdXJlbWVudCBQZXJpb2QuCmRlZmluZSAiRW5jb3VudGVycyBJbiBQZXJpb2QiOgogIFtFbmNvdW50ZXJdIEUgd2hlcmUgRS5wZXJpb2Quc3RhcnQgZHVyaW5nICJNZWFzdXJlbWVudCBQZXJpb2QiCmRlZmluZSAiRmluaXNoZWQgRW5jb3VudGVycyI6CiAgIkVuY291bnRlcnMgSW4gUGVyaW9kIiBFIHdoZXJlIEUuc3RhdHVzID0gJ2ZpbmlzaGVkJwpkZWZpbmUgIkVuY291bnRlciBFeGNsdXNpb25zIjoKICAiRW5jb3VudGVycyBJbiBQZXJpb2QiIEUgd2hlcmUgRS5pZCBpbiB7ICdlNCcgfQoKZGVmaW5lIGZ1bmN0aW9uICJMZW5ndGggT2YgU3RheSBEYXlzIihFIEVuY291bnRlcik6CiAgZGlmZmVyZW5jZSBpbiBkYXlzIGJldHdlZW4gc3RhcnQgb2YgRS5wZXJpb2QgYW5kIGVuZCBvZiBFLnBlcmlvZAoKLy8gQSBwb3B1bGF0aW9uIHRoYXQgcmV0dXJucyB0aGUgd3JvbmcgdHlwZSBmb3IgYSBib29sZWFuIGJhc2lzLgpkZWZpbmUgIldyb25nIFR5cGUgRm9yIEJvb2xlYW4iOiAiRW5jb3VudGVycyBJbiBQZXJpb2QiCg=="
+    }
+  ]
+}
