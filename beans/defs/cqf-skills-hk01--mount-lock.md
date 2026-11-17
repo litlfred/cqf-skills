@@ -1,19 +1,24 @@
 ---
 # cqf-skills-hk01
-title: 'HK-01: lay down the harness mounts and run the harness checks'
+title: 'HK-01: harness checks still red in the pinned layers'
 status: todo
 type: task
-priority: high
+priority: normal
 tags:
     - this-repository
 created_at: 2026-11-17T00:00:00Z
 updated_at: 2026-11-17T00:00:00Z
 ---
 
-`index.config.json` pins fhir-harness at the commit smart-trust-tools pins, but `index.lock.json`, `package.json`, `bun.lock` and `.github/cat.ts` are not here yet, so `bun run cat mount:lock`, `skill:register:check`, `harness:dirs:check` and the BPMN checks have not run on this layer.
+The mounts are laid down from `index.lock.json` (the six layers litlfred/smart-trust-demo pins on 2026-11-17) and the checks that judge this layer pass (HARNESS.md lists them). Red at those pins, from the mounted layers rather than from cqf-skills:
+
+- `skill:commands` (and so `skill:register`): cat-harness's committed `.claude/commands/*.md` name skills that no longer declare `user_invocable` — regenerate in cat-harness.
+- `kg:audit:check`: ten `test/attestations/kg-qa/sdlc/processes/*.attestations.json` in cat-harness judge subjects no report covers.
+- `check:declaration-resolution`: cat-harness and cat-harness-tools directories cut over to state branches are not mounted (`state:mount`), and cat-harness's `beans` directory reads this layer's `beans/` (smart-trust-demo keeps its beans on main the same way).
+- `skills:docs:check`, `check:glossary`: need the state branches and the QA corpus (`qa:fetch`).
 
 ## Done when
 
-- [ ] `index.lock.json` written by `mount:lock` and committed; mounts gitignored
-- [ ] The harness checks pass, or their findings are beans
-- [ ] A CI job runs `python3 -I tools/kg-index/kg_index.py --check` beside `validate_skills.py`
+- [ ] Re-pinned to layers where these are green, or each is a bean in the layer that owns it
+- [ ] A CI job here runs `mount:lock` and the passing checks, with actions pinned by SHA
+- [ ] Decide whether `beans/` moves to a state branch `cat/cqf-skills/beans`

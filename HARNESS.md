@@ -11,7 +11,11 @@ and offer skills back. Everything below is added beside them.
 | path | what | how it is made |
 |---|---|---|
 | `cqf-skills.json` | the layer's declaration: the directories it scans and the graph typology of each | by hand |
-| `index.config.json` | the harness layers it needs (fhir-harness, and through it cat-harness and below), pinned by commit | by hand; `index.lock.json` by `bun run cat mount:lock` |
+| `index.config.json` | the harness layers it needs (fhir-harness, folio-assistant-core, cat-harness, cat-harness-tools, bootstrap, bootstrap-tools), pinned by commit with the owner's consent at each ref | by hand |
+| `index.lock.json` | what those pins resolved to, by tree digest | `bun run cat mount:lock` |
+| `package.json`, `bun.lock`, `bunfig.toml` | the mounted code layers as workspaces, and the `cat` entry point | by hand; lockfile frozen |
+| `tools/kg-index/` | the Tool node (`kg-index.ts`) and its script | by hand |
+| `processes/content/*.checklist.md` | one checklist per process | **generated**: `bun run cat bpmn:checklist` |
 | `harness/skills/<plugin>/` | one package per marketplace plugin: `package-manifest.json` and one node per skill | **generated**: `python3 -I tools/kg-index/kg_index.py` (`--check` in CI) |
 | `processes/content/*.bpmn` | the work the skills serve, lanes by role, tasks naming skills | by hand (BPMN 2.0) |
 | `scenarios/roles.json` | the roles that play the lanes, with the skills each needs | by hand |
@@ -43,8 +47,21 @@ python3 -I tools/kg-index/kg_index.py        # regenerate harness/skills/
 python3 -I tools/kg-index/kg_index.py --check
 ```
 
-The harness's own checks (`bun run cat skill:register:check`, `harness:dirs:check`, the BPMN checks)
-need the mounts laid down first: bean HK-01.
+## Cold start for the harness checks
+
+```sh
+python3 -c "import json;[print(m['harness'],m['repository'],m['ref']) for m in json.load(open('index.lock.json'))['mounts']]" > /tmp/mounts.txt
+while read h r ref; do git clone -q --filter=blob:none --no-checkout https://github.com/$r $h && git -C $h checkout -q $ref && rm -rf $h/.git; done < /tmp/mounts.txt
+bun install --frozen-lockfile
+bun run cat mount:lock
+```
+
+A layer that no longer hashes to the lock is reported `missing`: delete it and run `mount:lock` again.
+Checks that judge this layer and pass: `harness:dirs:check`, `check:schema-nodes`,
+`node-kinds:check`, `subgraph:jsonld:check`, `check:process-bindings`, `check:process-documentation`,
+`bpmn:checklist:check`, `check:bean-front-matter`, `check:asset-roles`, `check:declaration-claims`, and
+the declared-skills half of `skill:register:check` (19 skills, 4 packages). What stays red is in the
+pinned layers, not here: bean HK-01.
 
 ## Syncing from upstream
 

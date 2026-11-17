@@ -34,3 +34,4 @@ skills/ig-publisher/resources/sources/*
 /bootstrap/
 /bootstrap-tools/
 /node_modules/
+/build/

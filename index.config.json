@@ -1,6 +1,6 @@
 {
   "$schema": "folio-index-config/v1",
-  "_comment": "cqf-skills pins fhir-harness (and so everything below it) at the commit litlfred/smart-trust-demo pins (2026-11-17). The mounts are laid down from index.lock.json by `bun run cat mount:lock` and gitignored; the lock is not written yet (bean cqf-skills-hk01). Trust consent for the pin is the owner's to give at mount time.",
+  "_comment": "cqf-skills (litlfred fork of cqframework/cqf-skills) pins the harness layers litlfred/smart-trust-demo pins on 2026-11-17 (fhir-harness and everything below it), unchanged, each with the owner's consent at that ref. The mounts are laid down from index.lock.json and gitignored.",
   "instances": [
     {
       "name": "fhir-harness",
@@ -11,6 +11,142 @@
           "overrides": {
             "fhir-harness": {
               "whole": true
+            }
+          },
+          "trust": {
+            "consent": {
+              "by": "litlfred",
+              "on": "2026-11-17",
+              "ref": "b36c50cdb9baeb5f2d33bfed4ee320c6845f29e7",
+              "evidence": "Carried from litlfred/smart-trust-demo index.config.json at the same ref (owner consent recorded there: litlfred 2026-11-17: merge-and-repin window to 09:18Z (owner ~06:18Z in session session_01EucfRnjwjC8CPYgVnsFuHS, 'merge what green and ready'); fhir-harness#450 (French figure labels)); cqf-skills harnessed at the owner's request 2026-11-17."
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "folio-assistant-core",
+      "source": {
+        "remote": {
+          "repository": "litlfred/folio-assistant-core",
+          "ref": "ff45c94570075215bb128d386ef00feacf0bbd61",
+          "overrides": {
+            "folio-assistant-core": {
+              "whole": true
+            },
+            "cat-harness": {
+              "skip": true
+            },
+            "cat-harness-tools": {
+              "skip": true
+            }
+          },
+          "trust": {
+            "consent": {
+              "by": "litlfred",
+              "on": "2026-11-17",
+              "ref": "ff45c94570075215bb128d386ef00feacf0bbd61",
+              "evidence": "Carried from litlfred/smart-trust-demo index.config.json at the same ref (owner consent recorded there: litlfred 2026-11-17: merge-and-repin window to 09:18Z (owner ~06:18Z in session session_01EucfRnjwjC8CPYgVnsFuHS, 'merge what green and ready'); moved to main with the fhir-harness#450 re-pin so lock:coherence:check (fresh at re-pin time) passes); cqf-skills harnessed at the owner's request 2026-11-17."
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "cat-harness",
+      "source": {
+        "remote": {
+          "repository": "litlfred/cat-harness",
+          "ref": "99f173e2c2fe4aeaab6f0560339a0e9688b27fb1",
+          "overrides": {
+            "cat-harness": {
+              "whole": true
+            },
+            "bootstrap": {
+              "skip": true
+            },
+            "bootstrap-tools": {
+              "skip": true
+            }
+          },
+          "trust": {
+            "consent": {
+              "by": "litlfred",
+              "on": "2026-11-17",
+              "ref": "99f173e2c2fe4aeaab6f0560339a0e9688b27fb1",
+              "evidence": "Carried from litlfred/smart-trust-demo index.config.json at the same ref (owner consent recorded there: litlfred 2026-11-17: merge-and-repin window to 09:18Z (owner ~06:18Z in session session_01EucfRnjwjC8CPYgVnsFuHS, 'merge what green and ready'); moved to main with the fhir-harness#450 re-pin so lock:coherence:check (fresh at re-pin time) passes); cqf-skills harnessed at the owner's request 2026-11-17."
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "cat-harness-tools",
+      "source": {
+        "remote": {
+          "repository": "litlfred/cat-harness-tools",
+          "ref": "1b18760f71c69bd391bf0d6c28c79c36603b6939",
+          "overrides": {
+            "cat-harness-tools": {
+              "whole": true
+            },
+            "cat-harness": {
+              "skip": true
+            }
+          },
+          "trust": {
+            "consent": {
+              "by": "litlfred",
+              "on": "2026-11-17",
+              "ref": "1b18760f71c69bd391bf0d6c28c79c36603b6939",
+              "evidence": "Carried from litlfred/smart-trust-demo index.config.json at the same ref (owner consent recorded there: litlfred 2026-11-17: merge-and-repin window to 09:18Z (owner ~06:18Z in session session_01EucfRnjwjC8CPYgVnsFuHS, 'merge what green and ready'); moved to main with the fhir-harness#450 re-pin so lock:coherence:check (fresh at re-pin time) passes); cqf-skills harnessed at the owner's request 2026-11-17."
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "bootstrap",
+      "source": {
+        "remote": {
+          "repository": "litlfred/bootstrap",
+          "ref": "7db8457701ebb9b99284d639128f3c82ad4fc6ea",
+          "overrides": {
+            "bootstrap": {
+              "whole": true
+            }
+          },
+          "trust": {
+            "consent": {
+              "by": "litlfred",
+              "on": "2026-11-15",
+              "ref": "7db8457701ebb9b99284d639128f3c82ad4fc6ea",
+              "evidence": "Carried from litlfred/smart-trust-demo index.config.json at the same ref (owner consent recorded there: litlfred 2026-11-15T19:01:19Z, card in thread cmsg_017WNUkNK8kdDziPK58Pv6G9HtujCofFVVPVPppfDRTSNR (decision cmsg_017WNUkNK8kdDziPK58Pv6G9L7BityLCAN5rXMwLd53Kkn): \"Yes, +12 hours\" \u2014 extend the repin and merge window so the stable point can finish (every pin to its main), to 2026-11-16T07:01Z); cqf-skills harnessed at the owner's request 2026-11-17."
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "bootstrap-tools",
+      "source": {
+        "remote": {
+          "repository": "litlfred/bootstrap-tools",
+          "ref": "174a567db34db10b007a45b13f960f218a6b04f5",
+          "overrides": {
+            "bootstrap-tools": {
+              "whole": true
+            },
+            "bootstrap": {
+              "skip": true
+            }
+          },
+          "trust": {
+            "consent": {
+              "by": "litlfred",
+              "on": "2026-11-15",
+              "ref": "174a567db34db10b007a45b13f960f218a6b04f5",
+              "evidence": "Carried from litlfred/smart-trust-demo index.config.json at the same ref (owner consent recorded there: litlfred 2026-11-15T19:01:19Z, card in thread cmsg_017WNUkNK8kdDziPK58Pv6G9HtujCofFVVPVPppfDRTSNR (decision cmsg_017WNUkNK8kdDziPK58Pv6G9L7BityLCAN5rXMwLd53Kkn): \"Yes, +12 hours\" \u2014 extend the repin and merge window so the stable point can finish (every pin to its main), to 2026-11-16T07:01Z); cqf-skills harnessed at the owner's request 2026-11-17."
             }
           }
         }
