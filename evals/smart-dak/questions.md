@@ -7,3 +7,5 @@
 **SD-03.** How does a reviewer trace a PlanDefinition back to the DAK?
 
 **SD-04.** How many test cases does a 5-row decision table need at least?
+
+**SD-05.** How many components does a DAK have in SMART Base 0.3.0, and which?

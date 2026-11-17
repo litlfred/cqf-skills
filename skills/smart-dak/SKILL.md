@@ -6,75 +6,114 @@ license: Apache-2.0
 
 # WHO SMART Guidelines: from DAK (L2) to computable content (L3)
 
-> **Status: draft (litlfred fork).** Written from the WHO SMART Guidelines approach and the SMART Base
-> IG; not yet checked against a built L3 IG, as the upstream skills are. Confirm the SMART Base
-> version the IG depends on (`sushi-config.yaml`, `dependencies: smart.who.int.base`).
+> **litlfred fork.** Checked against the WHO repositories themselves, read at a pinned commit and
+> recorded in [resources/sources.md](resources/sources.md) (cited as *S§n*): SMART Base **0.3.0**
+> (`WorldHealthOrganization/smart-base`), the Immunizations IG (`smart-immunizations`, on SMART Base
+> 0.2.0) and the ANC IG (`smart-anc`). Where the two IGs differ, both patterns are given. Confirm
+> the SMART Base version the IG depends on (`sushi-config.yaml`, `dependencies: smart.who.int.base`).
 
 The SMART Guidelines layers: **L1** narrative WHO guideline, **L2** the DAK (operational,
-software-neutral), **L3** machine-readable FHIR IG, **L4** executable software, **L5** dynamic
-(precision) systems. SMART Base: <https://smart.who.int/base/>. IG starter kit and authoring
-conventions: <https://smart.who.int/ig-starter-kit/>.
+software-neutral), **L3** machine-readable FHIR IG, **L4** executable software. SMART Base:
+<https://smart.who.int/base/>. IG starter kit and authoring conventions:
+<https://smart.who.int/ig-starter-kit/>.
 
 Related skills: `cpg` for the PlanDefinition and case-feature profiles, `cql` for the logic,
 `plan-definition` for `$apply`, `questionnaire` for data capture, `measure` for indicators,
-`terminology` for value sets, `fsh` and `ig-publisher` to build the IG.
+`terminology` for value sets, `crmi` for the shareable and publishable profiles, `fsh` and
+`ig-publisher` to build the IG.
 
-## Which L3 artifact carries each DAK component
+## The nine DAK components and the L3 artifact each becomes
 
-| DAK component | L3 artifact | notes |
-|---|---|---|
-| Health interventions and recommendations | IG narrative; `cpg-recommendationdefinition` PlanDefinitions | cite the L1 recommendation id |
-| Generic personas | `ActorDefinition` (and narrative) | one per persona |
-| User scenarios | IG narrative pages | |
-| Business processes and workflows | BPMN in the IG; `cpg-pathwaydefinition`/strategy PlanDefinitions where computable | |
-| Core data elements (data dictionary) | logical models (FSH `Logical`), ValueSets/CodeSystems, Questionnaires, ConceptMaps to standard terminologies | one logical model per activity |
-| Decision-support logic (decision tables) | one CQL `Library` and one `PlanDefinition` (ECA rule) per decision table | below |
-| Scheduling logic | CQL + PlanDefinitions as for decision tables | |
-| Program indicators | `Measure` (+ CQL library) per indicator | numerator/denominator from the DAK's definitions |
-| Functional and non-functional requirements | `Requirements` resources (FHIR R5 / extension) or narrative | |
+SMART Base 0.3.0's `DAK` logical model has exactly these nine components (*S§1*):
+
+| DAK component (`DAK` element) | L3 artifact in the WHO IGs |
+|---|---|
+| Health interventions and recommendations (`healthInterventions`) | IG narrative; a `relatedArtifact` of type `citation` to the L1 recommendation on each PlanDefinition (*S§2*) |
+| Generic personas (`personas`) | `ActorDefinition` and narrative |
+| User scenarios (`userScenarios`) | IG narrative pages |
+| Generic business processes and workflows (`businessProcesses`) | BPMN in the IG; the activity ids (`IMMZ.D2`) name the triggers of the decision tables |
+| Core data elements (`dataElements`) | one FSH `Logical` model per data-dictionary activity (`IMMZC4` "IMMZ.C4.Create client record"), its ValueSets and CodeSystems, and a `Questionnaire` per activity (`QIMMZC4`) (*S§3*) |
+| Decision-support logic (`decisionLogic`) | per decision table, a CQL Library and a PlanDefinition (below); SMART Base 0.3.0 sources each table as a **DMN** file |
+| Program indicators (`indicators`) | one `Measure` per indicator (`IMMZIND01` for IMMZ.IND.01), claiming `proportion-measure-cqfm` where it is a proportion (*S§3*) |
+| Functional and non-functional requirements (`requirements`) | `Requirements` resources and narrative |
+| Test scenarios (`testScenarios`) | test cases (synthetic) |
+
+Scheduling logic is not a separate component in 0.3.0: the IMMZ IG writes its schedules
+(`IMMZ.D18.S…`) as decision tables of the same shape.
 
 ## Decision table → CQL + PlanDefinition
 
-1. **Keep the DAK's identifiers.** A table `ANC.DT.01` becomes Library `ANCDT01` and PlanDefinition
-   `ANCDT01`; each rule row keeps its row id in a comment or `action.id`. Reviewers trace by id.
-2. **Inputs are data elements, never free text.** Each input column resolves to a data-element id
-   (for example `ANC.B6.DE17`) whose ValueSet or type the logical model defines. Put shared input
-   definitions in an `…Elements` library, so each decision library only states rules.
-3. **One CQL definition per output, one per rule's condition.** Name the rule conditions after the row
-   (`"Row 3 condition"`) and the outputs after the DAK output text, so the CQL reads as the table.
-4. **Hit policy.** DAK tables are usually *unique* or *first*. Express *first* as an ordered `case`,
-   and *unique* as mutually exclusive conditions — then test that no two rows match the same input.
-5. **The PlanDefinition** has one action per output, `condition.kind` `applicability` naming the CQL
-   definition, and the output's guidance in `action.description`/a CommunicationRequest
-   ActivityDefinition. Claim the CPG profile (`cpg-recommendationdefinition` or the ECA-rule pattern)
-   the `cpg` skill describes.
-6. **Test each row**: one synthetic test case per rule plus one where no rule fires.
+1. **Keep the DAK's identifiers, with the dots removed.** Two conventions are in use (*S§2, §4*):
+   - ANC: table `ANC.DT.01` → Library `ANCDT01` and PlanDefinition `ANCDT01`.
+   - IMMZ: table `IMMZ.D2.DT.HPV.2 doses` → PlanDefinition `IMMZD2DTHPV2Doses` and Library
+     `IMMZD2DTHPV2DosesLogic` (the PlanDefinition's `library` is `Canonical({id}Logic)`).
+   Follow the IG you are extending; for a new IG, the newer IMMZ form.
+2. **Inputs are data elements, never free text.** Shared input definitions live in their own
+   libraries, included by every decision library: ANC `ANCDataElements` and `ANCContactDataElements`
+   (plus `ANCConcepts`, `ANCConfig`); IMMZ one `…Elements` and `…EncounterElements` library per
+   vaccine (`IMMZD2DTHPVEncounterElements`) (*S§2, §4*). A decision library only states rules.
+3. **One definition per rule row, named after its output.** IMMZ writes `"<output> Case 1"`,
+   `"<output> Case 2"`…, and the output as the `or` of its cases; each definition carries
+   `@output` and `@pseudocode` comment annotations, and the library a header naming the table and its
+   trigger (*S§2*). ANC names each rule after its output and keeps the DAK condition as a comment
+   (*S§4*).
+4. **Guidance as a dynamic value.** IMMZ adds a `"Guidance"` definition (a `case` over the outputs)
+   and `"Has Guidance"`, used by a CommunicationRequest action (*S§2*).
+5. **Hit policy.** For a *unique* table, the case conditions must be mutually exclusive; for *first*,
+   an ordered `case`. Test that no input matches two rows of a unique table.
+6. **The PlanDefinition** (*S§2, §4*):
+   - IMMZ: `InstanceOf: cpg-recommendationdefinition`, `meta.profile` `crmi-shareableplandefinition`
+     and `crmi-publishableplandefinition`, `cpg-knowledgeCapability` `computable`; one action per
+     output, each with a `cpg-rationale`, an `applicability` condition in `text/cql-identifier` naming
+     the output definition, and a `definitionCanonical` to an ActivityDefinition.
+   - ANC: one top action titled with the table id, one child action per rule row (`id` "1", "2"…),
+     each with an `applicability` condition naming the row's definition and a `documentation`
+     citation.
+7. **Test each row**: one synthetic test case per rule, plus one where no rule fires.
 
 ```cql
-library ANCDT01 version '0.1.0'
+/*
+ * Library: EXDT01Logic (EX.DT.01, illustrative)
+ * Decision Table: Danger signs
+ * Trigger: EX.B6 Check for danger signs
+ */
+library EXDT01Logic
 using FHIR version '4.0.1'
 include FHIRHelpers version '4.0.1'
-include ANCElements called E
+include EXEncounterElements called Encounter
 
 context Patient
 
-// ANC.DT.01 row 1 (illustrative): danger sign present -> refer urgently
-define "Row 1 condition": E."Danger signs" is not null and exists E."Danger signs"
-define "Refer urgently": "Row 1 condition"
+/*
+@output: Refer urgently Case 1
+@pseudocode: "Danger signs" = "Convulsing"
+*/
+define "Refer urgently Case 1":
+  Encounter."Client is convulsing"
+
+/*
+@output: Refer urgently
+*/
+define "Refer urgently":
+  "Refer urgently Case 1"
 ```
 
 ## Traceability and coverage
 
-- Every L3 artifact names its DAK source: `relatedArtifact` of type `derived-from` (or
-  `citation`) to the DAK component, plus the DAK id in `identifier` or the title.
-- Review coverage both ways: every decision table, indicator and data element has an artifact; every
-  artifact has a DAK source.
+- An L3 artifact traces to its DAK by **id and title**: the id is the DAK id without dots, the title
+  repeats the dotted id (`"IMMZ.D2.DT.Dengue.3 doses with pre-vaccination screening"`), and the CQL
+  header names the table and trigger. Neither IG uses `relatedArtifact` `derived-from` for this
+  (*S§2*).
+- The L1 recommendation is cited with `relatedArtifact` (IMMZ, type `citation`) or action
+  `documentation` (ANC, type `citation`).
+- Review coverage both ways: every decision table, indicator and data-dictionary activity has an
+  artifact; every artifact has a DAK id.
 - All personas, test patients and examples are fictional.
 
 ## Checklist
 
-- [ ] Artifact ids follow the DAK ids.
-- [ ] Inputs resolve to data elements with ValueSets.
-- [ ] Hit policy encoded and tested (overlap test for *unique*).
+- [ ] Artifact ids are the DAK ids without dots, in the convention of the IG being extended.
+- [ ] Inputs come from shared elements libraries, with ValueSets.
+- [ ] One definition per rule row; outputs as the `or` of their cases; hit policy tested.
+- [ ] PlanDefinitions claim the CPG and CRMI profiles the IG uses.
 - [ ] One test case per rule, plus the no-rule case.
-- [ ] `relatedArtifact` back to the DAK on every artifact.
