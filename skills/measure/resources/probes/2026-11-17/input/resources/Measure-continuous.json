@@ -1,0 +1,102 @@
+{
+  "resourceType": "Measure",
+  "id": "continuous",
+  "url": "http://example.org/fhir/Measure/continuous",
+  "version": "1.0.0",
+  "name": "continuous",
+  "status": "active",
+  "scoring": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/measure-scoring",
+        "code": "continuous-variable"
+      }
+    ]
+  },
+  "library": [
+    "http://example.org/fhir/Library/MeasureProbe"
+  ],
+  "group": [
+    {
+      "id": "g1",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-populationBasis",
+          "valueCode": "Encounter"
+        }
+      ],
+      "population": [
+        {
+          "id": "ip",
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "initial-population"
+              }
+            ]
+          },
+          "criteria": {
+            "language": "text/cql-identifier",
+            "expression": "Encounters In Period"
+          }
+        },
+        {
+          "id": "mp",
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "measure-population"
+              }
+            ]
+          },
+          "criteria": {
+            "language": "text/cql-identifier",
+            "expression": "Encounters In Period"
+          }
+        },
+        {
+          "id": "mpex",
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "measure-population-exclusion"
+              }
+            ]
+          },
+          "criteria": {
+            "language": "text/cql-identifier",
+            "expression": "Encounter Exclusions"
+          }
+        },
+        {
+          "id": "obs",
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "measure-observation"
+              }
+            ]
+          },
+          "criteria": {
+            "language": "text/cql-identifier",
+            "expression": "Length Of Stay Days"
+          },
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-aggregateMethod",
+              "valueCode": "median"
+            },
+            {
+              "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-criteriaReference",
+              "valueString": "mp"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

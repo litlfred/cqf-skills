@@ -1,0 +1,92 @@
+{
+  "resourceType": "Measure",
+  "id": "encounter-basis",
+  "url": "http://example.org/fhir/Measure/encounter-basis",
+  "version": "1.0.0",
+  "name": "encounterbasis",
+  "status": "active",
+  "scoring": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/measure-scoring",
+        "code": "proportion"
+      }
+    ]
+  },
+  "library": [
+    "http://example.org/fhir/Library/MeasureProbe"
+  ],
+  "group": [
+    {
+      "id": "g1",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-populationBasis",
+          "valueCode": "Encounter"
+        }
+      ],
+      "population": [
+        {
+          "id": "ip",
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "initial-population"
+              }
+            ]
+          },
+          "criteria": {
+            "language": "text/cql-identifier",
+            "expression": "Encounters In Period"
+          }
+        },
+        {
+          "id": "denom",
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "denominator"
+              }
+            ]
+          },
+          "criteria": {
+            "language": "text/cql-identifier",
+            "expression": "Encounters In Period"
+          }
+        },
+        {
+          "id": "denex",
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "denominator-exclusion"
+              }
+            ]
+          },
+          "criteria": {
+            "language": "text/cql-identifier",
+            "expression": "Encounter Exclusions"
+          }
+        },
+        {
+          "id": "numer",
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "numerator"
+              }
+            ]
+          },
+          "criteria": {
+            "language": "text/cql-identifier",
+            "expression": "Finished Encounters"
+          }
+        }
+      ]
+    }
+  ]
+}

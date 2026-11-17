@@ -1,0 +1,36 @@
+{
+  "resourceType": "ValueSet",
+  "id": "vs-expanded",
+  "url": "http://example.org/fhir/ValueSet/vs-expanded",
+  "version": "1.0.0",
+  "name": "vsexpanded",
+  "status": "active",
+  "compose": {
+    "include": [
+      {
+        "system": "http://snomed.info/sct",
+        "concept": [
+          {
+            "code": "1000001"
+          },
+          {
+            "code": "1000002"
+          }
+        ]
+      }
+    ]
+  },
+  "expansion": {
+    "timestamp": "2026-11-17T00:00:00Z",
+    "contains": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "1000001"
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "code": "1000002"
+      }
+    ]
+  }
+}

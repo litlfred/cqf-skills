@@ -1,0 +1,25 @@
+{
+  "resourceType": "CarePlan",
+  "id": "mcv-due",
+  "contained": [ {
+    "resourceType": "RequestGroup",
+    "id": "mcv-due",
+    "instantiatesCanonical": [ "http://example.org/fhir/PlanDefinition/mcv-due|1.0.0" ],
+    "status": "active",
+    "intent": "proposal",
+    "subject": {
+      "reference": "Patient/child-1"
+    }
+  } ],
+  "instantiatesCanonical": [ "http://example.org/fhir/PlanDefinition/mcv-due|1.0.0" ],
+  "status": "active",
+  "intent": "proposal",
+  "subject": {
+    "reference": "Patient/child-1"
+  },
+  "activity": [ {
+    "reference": {
+      "reference": "#mcv-due"
+    }
+  } ]
+}

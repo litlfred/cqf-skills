@@ -25,3 +25,13 @@ skills/usqualitycore/resources/profiles/
 # built by skills/ig-publisher/scripts/fetch-sources.sh from pinned locators.
 skills/ig-publisher/resources/sources/*
 !skills/ig-publisher/resources/sources/README.md
+
+# cat-harness mounts, laid down from index.lock.json by `bun run cat mount:lock` (litlfred fork).
+/fhir-harness/
+/folio-assistant-core/
+/cat-harness/
+/cat-harness-tools/
+/bootstrap/
+/bootstrap-tools/
+/node_modules/
+/build/

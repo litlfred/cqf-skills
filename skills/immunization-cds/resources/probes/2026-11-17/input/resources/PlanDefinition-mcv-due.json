@@ -1,0 +1,27 @@
+{
+  "resourceType": "PlanDefinition",
+  "id": "mcv-due",
+  "url": "http://example.org/fhir/PlanDefinition/mcv-due",
+  "version": "1.0.0",
+  "name": "MCVDue",
+  "status": "active",
+  "library": [
+    "http://example.org/fhir/Library/ImmzProbe"
+  ],
+  "action": [
+    {
+      "id": "due",
+      "title": "Client is due for MCV",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Due For MCV"
+          }
+        }
+      ],
+      "definitionCanonical": "http://example.org/fhir/ActivityDefinition/recommend-mcv"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "resourceType": "PlanDefinition",
+  "id": "one-link",
+  "url": "http://example.org/fhir/PlanDefinition/one-link",
+  "version": "1.0.0",
+  "name": "onelink",
+  "title": "Probe one-link",
+  "description": "Probe PlanDefinition one-link.",
+  "status": "active",
+  "library": [
+    "http://example.org/fhir/Library/CdsProbe"
+  ],
+  "action": [
+    {
+      "id": "a",
+      "title": "Routine advice",
+      "priority": "routine",
+      "trigger": [
+        {
+          "type": "named-event",
+          "name": "patient-view"
+        }
+      ],
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Is Adult"
+          }
+        }
+      ]
+    }
+  ],
+  "relatedArtifact": [
+    {
+      "type": "documentation",
+      "display": "Guide",
+      "url": "http://example.org/guide"
+    }
+  ]
+}

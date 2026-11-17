@@ -1,0 +1,47 @@
+{
+  "resourceType": "Measure",
+  "id": "wrong-basis",
+  "url": "http://example.org/fhir/Measure/wrong-basis",
+  "version": "1.0.0",
+  "name": "wrongbasis",
+  "status": "active",
+  "scoring": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/measure-scoring",
+        "code": "cohort"
+      }
+    ]
+  },
+  "library": [
+    "http://example.org/fhir/Library/MeasureProbe"
+  ],
+  "group": [
+    {
+      "id": "g1",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-populationBasis",
+          "valueCode": "boolean"
+        }
+      ],
+      "population": [
+        {
+          "id": "ip",
+          "code": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                "code": "initial-population"
+              }
+            ]
+          },
+          "criteria": {
+            "language": "text/cql-identifier",
+            "expression": "Wrong Type For Boolean"
+          }
+        }
+      ]
+    }
+  ]
+}

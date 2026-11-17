@@ -1,0 +1,27 @@
+{
+  "resourceType": "Immunization",
+  "id": "i4",
+  "status": "completed",
+  "vaccineCode": {
+    "coding": [
+      {
+        "system": "http://example.org/fhir/CodeSystem/illustrative-vaccines",
+        "code": "MCV"
+      }
+    ]
+  },
+  "patient": {
+    "reference": "Patient/child-1"
+  },
+  "occurrenceString": "at the 9-month visit (historical, no date)",
+  "protocolApplied": [
+    {
+      "targetDisease": [
+        {
+          "text": "Measles"
+        }
+      ],
+      "doseNumberString": "first"
+    }
+  ]
+}

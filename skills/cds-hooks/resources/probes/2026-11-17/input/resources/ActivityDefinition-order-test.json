@@ -1,0 +1,13 @@
+{
+  "resourceType": "ActivityDefinition",
+  "id": "order-test",
+  "url": "http://example.org/fhir/ActivityDefinition/order-test",
+  "version": "1.0.0",
+  "name": "OrderTest",
+  "status": "active",
+  "kind": "ServiceRequest",
+  "intent": "proposal",
+  "code": {
+    "text": "Illustrative test order"
+  }
+}

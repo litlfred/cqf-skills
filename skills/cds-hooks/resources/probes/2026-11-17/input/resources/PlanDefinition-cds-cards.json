@@ -1,0 +1,109 @@
+{
+  "resourceType": "PlanDefinition",
+  "id": "cds-cards",
+  "url": "http://example.org/fhir/PlanDefinition/cds-cards",
+  "version": "1.0.0",
+  "name": "cdscards",
+  "title": "Probe cds-cards",
+  "description": "Probe PlanDefinition cds-cards.",
+  "status": "active",
+  "library": [
+    "http://example.org/fhir/Library/CdsProbe"
+  ],
+  "action": [
+    {
+      "id": "routine",
+      "title": "Routine advice",
+      "description": "Detail for the routine card.",
+      "priority": "routine",
+      "trigger": [
+        {
+          "type": "named-event",
+          "name": "patient-view"
+        }
+      ],
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Is Adult"
+          }
+        }
+      ],
+      "documentation": [
+        {
+          "type": "documentation",
+          "display": "Example guideline",
+          "url": "http://example.org/guideline",
+          "document": {
+            "url": "http://example.org/icon.png"
+          }
+        }
+      ]
+    },
+    {
+      "id": "urgent",
+      "title": "Urgent advice",
+      "description": "Detail for the urgent card.",
+      "priority": "urgent",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Is Adult"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stat",
+      "title": "Stat advice",
+      "priority": "stat",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Is Adult"
+          }
+        }
+      ]
+    },
+    {
+      "id": "no-priority",
+      "title": "Advice with no priority",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Is Adult"
+          }
+        }
+      ]
+    },
+    {
+      "id": "child-only",
+      "title": "Not for adults",
+      "priority": "routine",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Is Child"
+          }
+        }
+      ]
+    }
+  ],
+  "relatedArtifact": [
+    {
+      "type": "documentation",
+      "display": "Guide",
+      "url": "http://example.org/guide"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "resourceType": "Library",
+  "id": "CdsProbe",
+  "url": "http://example.org/fhir/Library/CdsProbe",
+  "version": "1.0.0",
+  "name": "CdsProbe",
+  "status": "active",
+  "type": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/library-type",
+        "code": "logic-library"
+      }
+    ]
+  },
+  "content": [
+    {
+      "contentType": "text/cql",
+      "data": "bGlicmFyeSBDZHNQcm9iZSB2ZXJzaW9uICcxLjAuMCcKdXNpbmcgRkhJUiB2ZXJzaW9uICc0LjAuMScKY29udGV4dCBQYXRpZW50CmRlZmluZSAiSXMgQWR1bHQiOiBBZ2VJblllYXJzKCkgPj0gMTgKZGVmaW5lICJJcyBDaGlsZCI6IEFnZUluWWVhcnMoKSA8IDE4Cg=="
+    }
+  ]
+}

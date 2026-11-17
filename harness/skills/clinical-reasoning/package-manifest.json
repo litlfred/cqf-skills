@@ -1,0 +1,15 @@
+{
+  "name": "clinical-reasoning",
+  "version": "0.1.0",
+  "description": "Author and evaluate FHIR Clinical Reasoning artifacts against the CPG, CRMI and FHIR Extensions IGs",
+  "skills": [
+    "cds-hooks",
+    "cpg",
+    "crmi",
+    "immunization-cds",
+    "measure",
+    "plan-definition",
+    "questionnaire",
+    "smart-dak"
+  ]
+}

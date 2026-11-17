@@ -1,0 +1,12 @@
+{
+  "name": "fhir",
+  "version": "0.1.0",
+  "description": "FHIR R4 resources, bundles, standard extensions, US Core and US Quality Core profiles",
+  "skills": [
+    "fhir",
+    "fhir-extensions",
+    "terminology",
+    "uscore",
+    "usqualitycore"
+  ]
+}

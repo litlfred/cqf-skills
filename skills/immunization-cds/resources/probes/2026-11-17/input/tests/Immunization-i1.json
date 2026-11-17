@@ -1,0 +1,27 @@
+{
+  "resourceType": "Immunization",
+  "id": "i1",
+  "status": "completed",
+  "vaccineCode": {
+    "coding": [
+      {
+        "system": "http://example.org/fhir/CodeSystem/illustrative-vaccines",
+        "code": "MCV"
+      }
+    ]
+  },
+  "patient": {
+    "reference": "Patient/child-1"
+  },
+  "occurrenceDateTime": "2025-03-10T10:00:00Z",
+  "protocolApplied": [
+    {
+      "targetDisease": [
+        {
+          "text": "Measles"
+        }
+      ],
+      "doseNumberPositiveInt": 1
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "resourceType": "MedicationRequest",
+  "id": "recommend-mcv-fixed",
+  "meta": {
+    "profile": [ "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-immunizationrequest" ]
+  },
+  "status": "draft",
+  "intent": "proposal",
+  "category": [ {
+    "coding": [ {
+      "system": "http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type-cs",
+      "code": "recommend-immunization"
+    } ]
+  } ],
+  "doNotPerform": false,
+  "medicationCodeableConcept": {
+    "coding": [ {
+      "system": "http://example.org/fhir/CodeSystem/illustrative-vaccines",
+      "code": "MCV"
+    } ]
+  },
+  "subject": {
+    "reference": "Patient/child-2"
+  },
+  "instantiatesCanonical": [ "http://example.org/fhir/ActivityDefinition/recommend-mcv-fixed|1.0.0" ]
+}

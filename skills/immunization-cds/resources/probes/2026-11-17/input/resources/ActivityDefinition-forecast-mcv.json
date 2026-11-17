@@ -1,0 +1,17 @@
+{
+  "resourceType": "ActivityDefinition",
+  "id": "forecast-mcv",
+  "url": "http://example.org/fhir/ActivityDefinition/forecast-mcv",
+  "version": "1.0.0",
+  "name": "ForecastMCV",
+  "status": "active",
+  "kind": "ImmunizationRecommendation",
+  "code": {
+    "coding": [
+      {
+        "system": "http://example.org/fhir/CodeSystem/illustrative-vaccines",
+        "code": "MCV"
+      }
+    ]
+  }
+}

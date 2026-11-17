@@ -1,0 +1,23 @@
+{
+  "resourceType": "ImmunizationRecommendation",
+  "id": "forecast-mcv-no-status",
+  "patient": {
+    "reference": "Patient/child-1"
+  },
+  "date": "2026-11-17T19:14:07+00:00",
+  "recommendation": [ {
+    "vaccineCode": [ {
+      "coding": [ {
+        "system": "http://example.org/fhir/CodeSystem/illustrative-vaccines",
+        "code": "MCV"
+      } ]
+    } ],
+    "forecastStatus": {
+      "coding": [ {
+        "system": "http://terminology.hl7.org/CodeSystem/immunization-recommendation-status",
+        "code": "due",
+        "display": "Due"
+      } ]
+    }
+  } ]
+}

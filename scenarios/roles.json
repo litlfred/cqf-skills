@@ -1,0 +1,90 @@
+{
+ "_comment": "Roles this instance owns: the people and agents that play a lane in its processes (processes/content/), each with the skills its lane's tasks need. Schema: cat-harness/schemas/role-graph.ts.",
+ "name": "cqf-skills",
+ "roles": [
+  {
+   "id": "knowledge-engineer",
+   "title": "Knowledge engineer",
+   "description": "Turns clinical intent (a guideline, a DAK decision table, a logic requirement) into CQL libraries, PlanDefinitions and the FHIR resources that carry them.",
+   "actorKinds": [
+    "person",
+    "agent"
+   ],
+   "skills": [
+    "cql",
+    "cql-ig",
+    "us-cql-ig",
+    "terminology",
+    "vscode-cql",
+    "crmi",
+    "cpg",
+    "plan-definition",
+    "measure",
+    "smart-dak"
+   ],
+   "persona": "A clinician-informaticist or an agent with the guideline open beside the editor; works in VS Code with the CQL extension, needs each answer cited to a spec version, and tests on synthetic patients only."
+  },
+  {
+   "id": "measure-developer",
+   "title": "Measure developer",
+   "description": "Writes a quality measure: its CQL, the Measure resource, test cases with expected populations, and the evaluation that checks them.",
+   "actorKinds": [
+    "person",
+    "agent"
+   ],
+   "skills": [
+    "cms-qmd",
+    "us-cql-ig",
+    "usqualitycore",
+    "uscore",
+    "measure",
+    "terminology",
+    "madie",
+    "vscode-cql"
+   ],
+   "persona": "Works to a programme's deadline and style guide, moves test cases between VS Code and MADiE, and has to explain every population count that differs from the expected one."
+  },
+  {
+   "id": "ig-author",
+   "title": "IG author",
+   "description": "Keeps the FSH, the IG configuration and the build of a content IG, and packages its artifacts.",
+   "actorKinds": [
+    "person",
+    "agent"
+   ],
+   "skills": [
+    "fsh",
+    "fhir",
+    "fhir-extensions",
+    "ig-publisher",
+    "crmi",
+    "terminology",
+    "questionnaire"
+   ],
+   "persona": "Lives in sushi-config.yaml, ig.ini and qa.html; wants pinned versions and a clean build, not background on FHIR."
+  },
+  {
+   "id": "skill-maintainer",
+   "title": "Skill maintainer",
+   "description": "Keeps this fork's skills, their evals and the knowledge-graph view, syncs from cqframework and offers skills of general use back.",
+   "actorKinds": [
+    "person",
+    "agent"
+   ],
+   "skills": [
+    "skill-registration"
+   ],
+   "persona": "The fork's owner or an agent acting for them: adds a skill only with evals, marks it draft until checked by running, and never merges into cqframework."
+  },
+  {
+   "id": "cqframework-maintainer",
+   "title": "cqframework maintainer",
+   "description": "A maintainer of cqframework/cqf-skills who reviews a skill this fork offers upstream.",
+   "actorKinds": [
+    "external"
+   ],
+   "skills": [],
+   "persona": "Outside this repository: holds the upstream review bar (claims cited to code or spec, checked by running, evals that beat the baseline)."
+  }
+ ]
+}

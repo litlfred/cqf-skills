@@ -1,0 +1,49 @@
+{
+  "resourceType": "PlanDefinition",
+  "id": "two-true",
+  "url": "http://example.org/fhir/PlanDefinition/two-true",
+  "version": "1.0.0",
+  "name": "twotrue",
+  "title": "Probe two-true",
+  "description": "Probe PlanDefinition two-true.",
+  "status": "active",
+  "library": [
+    "http://example.org/fhir/Library/CdsProbe"
+  ],
+  "action": [
+    {
+      "id": "a",
+      "title": "Routine advice",
+      "priority": "routine",
+      "trigger": [
+        {
+          "type": "named-event",
+          "name": "patient-view"
+        }
+      ],
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Is Adult"
+          }
+        }
+      ]
+    },
+    {
+      "id": "b",
+      "title": "Urgent advice",
+      "priority": "urgent",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Is Adult"
+          }
+        }
+      ]
+    }
+  ]
+}

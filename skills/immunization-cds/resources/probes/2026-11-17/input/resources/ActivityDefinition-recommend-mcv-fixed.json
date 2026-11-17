@@ -1,0 +1,49 @@
+{
+  "resourceType": "ActivityDefinition",
+  "id": "recommend-mcv-fixed",
+  "url": "http://example.org/fhir/ActivityDefinition/recommend-mcv-fixed",
+  "version": "1.0.0",
+  "name": "RecommendMCVFixed",
+  "status": "active",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-immunizationactivity"
+    ]
+  },
+  "kind": "MedicationRequest",
+  "intent": "proposal",
+  "doNotPerform": false,
+  "profile": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-immunizationrequest",
+  "code": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type-cs",
+        "code": "recommend-immunization"
+      }
+    ]
+  },
+  "productCodeableConcept": {
+    "coding": [
+      {
+        "system": "http://example.org/fhir/CodeSystem/illustrative-vaccines",
+        "code": "MCV"
+      }
+    ]
+  },
+  "dynamicValue": [
+    {
+      "path": "status",
+      "expression": {
+        "language": "text/cql-expression",
+        "expression": "'draft'"
+      }
+    },
+    {
+      "path": "category",
+      "expression": {
+        "language": "text/cql-expression",
+        "expression": "{ Concept { codes: { Code { code: 'recommend-immunization', system: 'http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type-cs' } } } }"
+      }
+    }
+  ]
+}

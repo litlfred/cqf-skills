@@ -1,0 +1,109 @@
+{
+  "resourceType": "Parameters",
+  "parameter": [ {
+    "name": "All MCV",
+    "resource": {
+      "resourceType": "Immunization",
+      "id": "i5",
+      "status": "completed",
+      "vaccineCode": {
+        "coding": [ {
+          "system": "http://example.org/fhir/CodeSystem/illustrative-vaccines",
+          "code": "MCV"
+        } ]
+      },
+      "patient": {
+        "reference": "Patient/child-2"
+      },
+      "occurrenceDateTime": "2025-03-10T10:00:00Z",
+      "protocolApplied": [ {
+        "targetDisease": [ {
+          "text": "Measles"
+        } ],
+        "doseNumberPositiveInt": 1
+      } ]
+    }
+  }, {
+    "name": "All MCV Ids",
+    "valueId": "i5"
+  }, {
+    "name": "Completed Dose Count",
+    "valueInteger": 1
+  }, {
+    "name": "Completed MCV",
+    "resource": {
+      "resourceType": "Immunization",
+      "id": "i5",
+      "status": "completed",
+      "vaccineCode": {
+        "coding": [ {
+          "system": "http://example.org/fhir/CodeSystem/illustrative-vaccines",
+          "code": "MCV"
+        } ]
+      },
+      "patient": {
+        "reference": "Patient/child-2"
+      },
+      "occurrenceDateTime": "2025-03-10T10:00:00Z",
+      "protocolApplied": [ {
+        "targetDisease": [ {
+          "text": "Measles"
+        } ],
+        "doseNumberPositiveInt": 1
+      } ]
+    }
+  }, {
+    "name": "Completed MCV Ids",
+    "valueId": "i5"
+  }, {
+    "name": "Dated Completed MCV",
+    "resource": {
+      "resourceType": "Immunization",
+      "id": "i5",
+      "status": "completed",
+      "vaccineCode": {
+        "coding": [ {
+          "system": "http://example.org/fhir/CodeSystem/illustrative-vaccines",
+          "code": "MCV"
+        } ]
+      },
+      "patient": {
+        "reference": "Patient/child-2"
+      },
+      "occurrenceDateTime": "2025-03-10T10:00:00Z",
+      "protocolApplied": [ {
+        "targetDisease": [ {
+          "text": "Measles"
+        } ],
+        "doseNumberPositiveInt": 1
+      } ]
+    }
+  }, {
+    "name": "Dated Dose Count",
+    "valueInteger": 1
+  }, {
+    "name": "Dose Numbers",
+    "valuePositiveInt": 1
+  }, {
+    "name": "Due For MCV",
+    "valueBoolean": true
+  }, {
+    "name": "Latest Dose Date",
+    "valueDateTime": "2025-03-10T10:00:00Z"
+  }, {
+    "name": "Not Done MCV Ids",
+    "_valueBoolean": {
+      "extension": [ {
+        "url": "http://hl7.org/fhir/StructureDefinition/cqf-isEmptyList",
+        "valueBoolean": true
+      } ]
+    }
+  }, {
+    "name": "Patient",
+    "resource": {
+      "resourceType": "Patient",
+      "id": "child-2",
+      "birthDate": "2024-06-01"
+    }
+  } ]
+}

@@ -1,0 +1,15 @@
+{
+  "resourceType": "Condition",
+  "id": "c3",
+  "subject": {
+    "reference": "Patient/p1"
+  },
+  "code": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "1000003"
+      }
+    ]
+  }
+}
