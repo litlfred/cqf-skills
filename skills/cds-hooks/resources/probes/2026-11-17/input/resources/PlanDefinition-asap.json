@@ -1,0 +1,35 @@
+{
+  "resourceType": "PlanDefinition",
+  "id": "asap",
+  "url": "http://example.org/fhir/PlanDefinition/asap",
+  "version": "1.0.0",
+  "name": "asap",
+  "title": "Probe asap",
+  "description": "Probe PlanDefinition asap.",
+  "status": "active",
+  "library": [
+    "http://example.org/fhir/Library/CdsProbe"
+  ],
+  "action": [
+    {
+      "id": "a",
+      "title": "ASAP advice",
+      "priority": "asap",
+      "trigger": [
+        {
+          "type": "named-event",
+          "name": "patient-view"
+        }
+      ],
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Is Adult"
+          }
+        }
+      ]
+    }
+  ]
+}

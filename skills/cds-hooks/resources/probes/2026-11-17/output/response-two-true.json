@@ -1,0 +1,11 @@
+{
+  "cards" : [ {
+    "summary" : "Routine advice",
+    "indicator" : "info",
+    "links" : [ ]
+  }, {
+    "summary" : "Urgent advice",
+    "indicator" : "warning",
+    "links" : [ ]
+  } ]
+}

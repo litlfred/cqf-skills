@@ -1,0 +1,34 @@
+{
+  "resourceType": "PlanDefinition",
+  "id": "one-no-priority",
+  "url": "http://example.org/fhir/PlanDefinition/one-no-priority",
+  "version": "1.0.0",
+  "name": "onenopriority",
+  "title": "Probe one-no-priority",
+  "description": "Probe PlanDefinition one-no-priority.",
+  "status": "active",
+  "library": [
+    "http://example.org/fhir/Library/CdsProbe"
+  ],
+  "action": [
+    {
+      "id": "a",
+      "title": "Advice with no priority",
+      "trigger": [
+        {
+          "type": "named-event",
+          "name": "patient-view"
+        }
+      ],
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Is Adult"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "services" : [ {
+    "hook" : "patient-view",
+    "title" : "Probe cds-probe",
+    "description" : "Probe PlanDefinition cds-probe.",
+    "id" : "cds-probe",
+    "prefetch" : {
+      "item1" : "Patient?_id={{context.patientId}}"
+    }
+  } ]
+}

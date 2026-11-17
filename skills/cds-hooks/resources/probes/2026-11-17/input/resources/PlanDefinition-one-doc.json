@@ -1,0 +1,42 @@
+{
+  "resourceType": "PlanDefinition",
+  "id": "one-doc",
+  "url": "http://example.org/fhir/PlanDefinition/one-doc",
+  "version": "1.0.0",
+  "name": "onedoc",
+  "title": "Probe one-doc",
+  "description": "Probe PlanDefinition one-doc.",
+  "status": "active",
+  "library": [
+    "http://example.org/fhir/Library/CdsProbe"
+  ],
+  "action": [
+    {
+      "id": "a",
+      "title": "Advice with a source",
+      "priority": "routine",
+      "trigger": [
+        {
+          "type": "named-event",
+          "name": "patient-view"
+        }
+      ],
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Is Adult"
+          }
+        }
+      ],
+      "documentation": [
+        {
+          "type": "documentation",
+          "display": "Example guideline",
+          "url": "http://example.org/guideline"
+        }
+      ]
+    }
+  ]
+}

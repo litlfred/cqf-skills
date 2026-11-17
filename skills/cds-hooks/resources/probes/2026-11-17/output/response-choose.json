@@ -1,0 +1,8 @@
+{
+  "cards" : [ {
+    "summary" : "Choose an order",
+    "indicator" : "info",
+    "selectionBehavior" : "at-most-one",
+    "links" : [ ]
+  } ]
+}

@@ -1,0 +1,11 @@
+{
+  "cards" : [ {
+    "summary" : "Advice with a source",
+    "indicator" : "info",
+    "source" : {
+      "label" : "Example guideline",
+      "url" : "http://example.org/guideline"
+    },
+    "links" : [ ]
+  } ]
+}

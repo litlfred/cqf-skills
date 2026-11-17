@@ -1,0 +1,29 @@
+{
+  "resourceType": "PlanDefinition",
+  "id": "no-trigger",
+  "url": "http://example.org/fhir/PlanDefinition/no-trigger",
+  "version": "1.0.0",
+  "name": "notrigger",
+  "title": "Probe no-trigger",
+  "description": "Probe PlanDefinition no-trigger.",
+  "status": "active",
+  "library": [
+    "http://example.org/fhir/Library/CdsProbe"
+  ],
+  "action": [
+    {
+      "id": "a",
+      "title": "Advice",
+      "priority": "routine",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Is Adult"
+          }
+        }
+      ]
+    }
+  ]
+}

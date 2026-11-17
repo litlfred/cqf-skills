@@ -1,0 +1,35 @@
+{
+  "resourceType": "PlanDefinition",
+  "id": "one-false",
+  "url": "http://example.org/fhir/PlanDefinition/one-false",
+  "version": "1.0.0",
+  "name": "onefalse",
+  "title": "Probe one-false",
+  "description": "Probe PlanDefinition one-false.",
+  "status": "active",
+  "library": [
+    "http://example.org/fhir/Library/CdsProbe"
+  ],
+  "action": [
+    {
+      "id": "a",
+      "title": "Not for adults",
+      "priority": "routine",
+      "trigger": [
+        {
+          "type": "named-event",
+          "name": "patient-view"
+        }
+      ],
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Is Child"
+          }
+        }
+      ]
+    }
+  ]
+}

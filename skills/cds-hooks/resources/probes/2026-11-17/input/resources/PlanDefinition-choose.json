@@ -1,0 +1,52 @@
+{
+  "resourceType": "PlanDefinition",
+  "id": "choose",
+  "url": "http://example.org/fhir/PlanDefinition/choose",
+  "version": "1.0.0",
+  "name": "choose",
+  "title": "Probe choose",
+  "description": "Probe PlanDefinition choose.",
+  "status": "active",
+  "library": [
+    "http://example.org/fhir/Library/CdsProbe"
+  ],
+  "action": [
+    {
+      "id": "choose",
+      "title": "Choose an order",
+      "priority": "routine",
+      "selectionBehavior": "at-most-one",
+      "trigger": [
+        {
+          "type": "named-event",
+          "name": "patient-view"
+        }
+      ],
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Is Adult"
+          }
+        }
+      ],
+      "action": [
+        {
+          "id": "order-a",
+          "title": "Order the test",
+          "description": "Create the order",
+          "type": {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/action-type",
+                "code": "create"
+              }
+            ]
+          },
+          "definitionCanonical": "http://example.org/fhir/ActivityDefinition/order-test"
+        }
+      ]
+    }
+  ]
+}
