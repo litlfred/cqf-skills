@@ -1,0 +1,22 @@
+{
+  "resourceType": "Library",
+  "id": "TerminologyProbe",
+  "url": "http://example.org/fhir/Library/TerminologyProbe",
+  "version": "1.0.0",
+  "name": "TerminologyProbe",
+  "status": "active",
+  "type": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/library-type",
+        "code": "logic-library"
+      }
+    ]
+  },
+  "content": [
+    {
+      "contentType": "text/cql",
+      "data": "bGlicmFyeSBUZXJtaW5vbG9neVByb2JlIHZlcnNpb24gJzEuMC4wJwoKdXNpbmcgRkhJUiB2ZXJzaW9uICc0LjAuMScKCmluY2x1ZGUgRkhJUkhlbHBlcnMgdmVyc2lvbiAnNC4wLjEnIGNhbGxlZCBGSElSSGVscGVycwoKY29kZXN5c3RlbSAiU0NUIjogJ2h0dHA6Ly9zbm9tZWQuaW5mby9zY3QnCgp2YWx1ZXNldCAiRXhwYW5kZWQiOiAnaHR0cDovL2V4YW1wbGUub3JnL2ZoaXIvVmFsdWVTZXQvdnMtZXhwYW5kZWQnCnZhbHVlc2V0ICJDb21wb3NlT25seSI6ICdodHRwOi8vZXhhbXBsZS5vcmcvZmhpci9WYWx1ZVNldC92cy1jb21wb3NlJwp2YWx1ZXNldCAiTWlzc2luZyI6ICdodHRwOi8vZXhhbXBsZS5vcmcvZmhpci9WYWx1ZVNldC92cy1taXNzaW5nJwoKLy8gSWxsdXN0cmF0aXZlIGNvZGVzLCBub3QgcmVhbCBTTk9NRUQgQ1QgY29uY2VwdHMuCmNvZGUgIkMxIE90aGVyIERpc3BsYXkiOiAnMTAwMDAwMScgZnJvbSAiU0NUIiBkaXNwbGF5ICdEaXNwbGF5IEInCgpjb250ZXh0IFBhdGllbnQKCmRlZmluZSAiUmV0cmlldmUgRXhwYW5kZWQiOiBbQ29uZGl0aW9uOiAiRXhwYW5kZWQiXSBDIHJldHVybiBDLmlkCmRlZmluZSAiUmV0cmlldmUgQ29tcG9zZU9ubHkiOiBbQ29uZGl0aW9uOiAiQ29tcG9zZU9ubHkiXSBDIHJldHVybiBDLmlkCmRlZmluZSAiUmV0cmlldmUgTWlzc2luZyI6IFtDb25kaXRpb246ICJNaXNzaW5nIl0gQyByZXR1cm4gQy5pZApkZWZpbmUgIlJldHJpZXZlIEJ5IENvZGUiOiBbQ29uZGl0aW9uOiAiQzEgT3RoZXIgRGlzcGxheSJdIEMgcmV0dXJuIEMuaWQKZGVmaW5lICJJbiBFeHBhbmRlZCI6IFtDb25kaXRpb25dIEMgd2hlcmUgQy5jb2RlIGluICJFeHBhbmRlZCIgcmV0dXJuIEMuaWQKZGVmaW5lICJFcXVpdmFsZW50IFRvIENvZGUiOiBbQ29uZGl0aW9uXSBDIHdoZXJlIEMuY29kZSB+ICJDMSBPdGhlciBEaXNwbGF5IiByZXR1cm4gQy5pZAoKZGVmaW5lICJFcXVhbCBEaWZmZXJlbnQgRGlzcGxheSI6CiAgQ29kZSB7IGNvZGU6ICcxJywgc3lzdGVtOiAncycsIGRpc3BsYXk6ICdBJyB9ID0gQ29kZSB7IGNvZGU6ICcxJywgc3lzdGVtOiAncycsIGRpc3BsYXk6ICdCJyB9CmRlZmluZSAiRXF1aXZhbGVudCBEaWZmZXJlbnQgRGlzcGxheSI6CiAgQ29kZSB7IGNvZGU6ICcxJywgc3lzdGVtOiAncycsIGRpc3BsYXk6ICdBJyB9IH4gQ29kZSB7IGNvZGU6ICcxJywgc3lzdGVtOiAncycsIGRpc3BsYXk6ICdCJyB9CmRlZmluZSAiRXF1YWwgRGlmZmVyZW50IFZlcnNpb24iOgogIENvZGUgeyBjb2RlOiAnMScsIHN5c3RlbTogJ3MnLCB2ZXJzaW9uOiAnMScgfSA9IENvZGUgeyBjb2RlOiAnMScsIHN5c3RlbTogJ3MnLCB2ZXJzaW9uOiAnMicgfQpkZWZpbmUgIkVxdWl2YWxlbnQgRGlmZmVyZW50IFZlcnNpb24iOgogIENvZGUgeyBjb2RlOiAnMScsIHN5c3RlbTogJ3MnLCB2ZXJzaW9uOiAnMScgfSB+IENvZGUgeyBjb2RlOiAnMScsIHN5c3RlbTogJ3MnLCB2ZXJzaW9uOiAnMicgfQo="
+    }
+  ]
+}

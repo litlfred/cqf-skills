@@ -1,0 +1,20 @@
+{
+  "resourceType": "ValueSet",
+  "id": "vs-compose",
+  "url": "http://example.org/fhir/ValueSet/vs-compose",
+  "version": "1.0.0",
+  "name": "vscompose",
+  "status": "active",
+  "compose": {
+    "include": [
+      {
+        "system": "http://snomed.info/sct",
+        "concept": [
+          {
+            "code": "1000003"
+          }
+        ]
+      }
+    ]
+  }
+}
