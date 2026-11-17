@@ -70,7 +70,7 @@
       "graphTypologies": [
         "memory"
       ],
-      "description": "Owner directives: what the fork is and keeps from upstream, and the bar a fork skill meets before it is offered upstream."
+      "description": "Owner directives: what the fork is and keeps from upstream, the bar a fork skill meets before it is offered upstream, and that the beans stay on main."
     },
     {
       "id": "beans",
@@ -78,7 +78,7 @@
       "graphTypologies": [
         "beans"
       ],
-      "description": "Open issues of the fork, one bean each under beans/defs/: draft skills to check by running, skills still missing, and the harness mounts not yet laid down."
+      "description": "Open issues of the fork, one bean each under beans/defs/, kept on main (memory/dir-beans-on-main.md): draft skills to check by running, skills still missing, and the harness checks still red in the pinned layers."
     },
     {
       "id": "tools",
